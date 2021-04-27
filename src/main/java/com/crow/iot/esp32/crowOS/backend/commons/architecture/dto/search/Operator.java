@@ -1,0 +1,37 @@
+package com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search;
+
+/**
+ * @author : error23
+ * Created : 28/03/2020
+ */
+public enum Operator {
+
+	NULL,
+	NOT_NULL,
+
+	EQUALS,
+	NOT_EQUALS,
+
+	MATCHES,
+	MATCHES_START,
+	MATCHES_END,
+
+	IGNORE_CASE_MATCHES,
+	IGNORE_CASE_MATCHES_START,
+	IGNORE_CASE_MATCHES_END,
+
+	NOT_MATCHES,
+	IGNORE_CASE_NOT_MATCHES,
+
+	GREATER_THAN,
+	GREATER_EQUALS_THAN,
+
+	LOWER_THAN,
+	LOWER_EQUALS_THAN,
+
+	BETWEEN,
+	NOT_BETWEEN,
+
+	IN,
+	NOT_IN
+}

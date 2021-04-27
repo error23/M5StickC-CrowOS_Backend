@@ -1,0 +1,1 @@
+CREATE DOMAIN IF NOT EXISTS jsonb AS other;

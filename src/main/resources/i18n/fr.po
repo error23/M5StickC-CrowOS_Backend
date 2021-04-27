@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: template\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-05 10:12+0200\n"
+"Last-Translator: Rajic Igor <error23.d@gmail.com>\n"
+"Language-Team: Crow\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Basepath: ../../java\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: com/crow/iot/esp32/crowOS/backend/commons/ResourceNotFoundException.java:29
+#, java-format
+msgid "Resource: {0} {1} not found!"
+msgid_plural "Resources: {0} {1} not found!"
+msgstr[0] "Resource : {0} {1} n''as pas ete trouvée !"
+msgstr[1] "Resources : {0} {1} n''ont pas ete trouvée !"
+
+#: com/crow/iot/esp32/crowOS/backend/commons/ResourceNotFoundException.java:41
+#, java-format
+msgid "Resource: {0} not found!"
+msgstr "Resource : {0} n''as pas ete trouvée !"
+
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:107
+#, java-format
+msgid "Input validation failed with {0} error: "
+msgid_plural "Input validation failed with {0} errors: "
+msgstr[0] "Validation de l''entrée a échouée avec {0} erreur : "
+msgstr[1] "Validation des entrées a échouée avec {0} erreurs : "
+
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:110
+#, java-format
+msgid "Field {0}"
+msgstr "Champ {0}"
+
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/MethodArgumentNotValidExceptionFactory.java:33
+msgid "must not be null"
+msgstr "ne doit pas être nul"
+
+#: com/crow/iot/esp32/crowOS/backend/security/MissingPermissionException.java:40
+#, java-format
+msgid "Missing {0} permission on {1}!"
+msgstr "Vous n''avez pas de permission {0} sur l''object {1} !"
+
+#: com/crow/iot/esp32/crowOS/backend/security/SecurityTools.java:98
+msgid "unknown"
+msgstr "inconnue"
+
+#: com/crow/iot/esp32/crowOS/backend/security/SecurityTools.java:101
+#, java-format
+msgid "Account {0} doesn''t have root privilege!"
+msgstr "Account {0} n''as pas de privilege root !"
