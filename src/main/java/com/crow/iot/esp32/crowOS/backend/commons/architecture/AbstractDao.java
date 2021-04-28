@@ -51,6 +51,7 @@ public abstract class AbstractDao<T extends AbstractEntity> {
 	/**
 	 * Creates new {@link AbstractDao}
 	 */
+	@SuppressWarnings ("unchecked")
 	public AbstractDao() {
 
 		this.entityClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];

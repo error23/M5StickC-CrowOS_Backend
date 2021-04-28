@@ -237,6 +237,7 @@ public abstract class AbstractEntity implements Serializable {
 	 * @param values         to check with
 	 * @return built predicate
 	 */
+	@SuppressWarnings ({ "rawtypes", "unchecked" })
 	private static Predicate buildPredicate(CriteriaBuilder builder, Expression pathExpression, @NotNull Operator operator, List<Object> values) {
 
 		switch (operator) {
@@ -304,6 +305,7 @@ public abstract class AbstractEntity implements Serializable {
 	 * @param values         to check with
 	 * @return built predicate
 	 */
+	@SuppressWarnings ({ "rawtypes", "unchecked" })
 	private static Predicate buildPredicateJsonb(CriteriaBuilder builder, Expression pathExpression, @NotNull String jsonbPath, Operator operator, List<Object> values) {
 
 		String[] jsonbPathSplit = jsonbPath.split("\\.");

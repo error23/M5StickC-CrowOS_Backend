@@ -14,8 +14,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
  */
 public class MethodArgumentNotValidExceptionFactory {
 
-	private static final long serialVersionUID = 4113668976005800952L;
-
 	/**
 	 * Creates MethodArgumentNotValidException for not null assert
 	 *

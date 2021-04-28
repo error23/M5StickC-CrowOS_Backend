@@ -47,6 +47,7 @@ public class SimpleTestEndpoint extends AbstractEndpoint {
 	@ResponseBody
 	@ResponseStatus (HttpStatus.ACCEPTED)
 	public void badRequestValidationError(@RequestBody @Valid AccountDto dto) {
+		// Do nothing here
 
 	}
 
