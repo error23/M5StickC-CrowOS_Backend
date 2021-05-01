@@ -12,5 +12,6 @@ public enum SecuredResource {
 	ACCOUNT_ENABLED,
 	ACCOUNT_ROLE,
 
-	ROLE
+	ROLE,
+	FEATURE_DATA
 }
