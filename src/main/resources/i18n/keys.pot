@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 13:13+0200\n"
+"POT-Creation-Date: 2021-05-05 00:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,37 +18,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: com/crow/iot/esp32/crowOS/backend/commons/DuplicatedResourceException.java:25
+#, java-format
+msgid "Sorry, one {0} already exists with {1} = {2}"
+msgstr ""
+
 #: com/crow/iot/esp32/crowOS/backend/commons/ResourceNotFoundException.java:29
 #, java-format
-msgid "Resource: {0} {1} not found!"
-msgid_plural "Resources: {0} {1} not found!"
+msgid "Sorry, {0} with ID {1} not found!"
+msgid_plural "Sorry, {0}s with Ids {1} not found!"
 msgstr[0] ""
 msgstr[1] ""
 
 #: com/crow/iot/esp32/crowOS/backend/commons/ResourceNotFoundException.java:41
 #, java-format
-msgid "Resource: {0} not found!"
+msgid "Sorry, {0} not found!"
 msgstr ""
 
-#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:107
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:110
 #, java-format
 msgid "Input validation failed with {0} error: "
 msgid_plural "Input validation failed with {0} errors: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:110
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/AbstractEndpoint.java:113
 #, java-format
 msgid "Field {0}"
 msgstr ""
 
-#: com/crow/iot/esp32/crowOS/backend/commons/architecture/MethodArgumentNotValidExceptionFactory.java:33
+#: com/crow/iot/esp32/crowOS/backend/commons/architecture/MethodArgumentNotValidExceptionFactory.java:31
 msgid "must not be null"
 msgstr ""
 
 #: com/crow/iot/esp32/crowOS/backend/security/MissingPermissionException.java:40
 #, java-format
-msgid "Missing {0} permission on {1}!"
+msgid "Sorry, missing {0} permission on {1}!"
 msgstr ""
 
 #: com/crow/iot/esp32/crowOS/backend/security/SecurityTools.java:98
@@ -57,5 +62,5 @@ msgstr ""
 
 #: com/crow/iot/esp32/crowOS/backend/security/SecurityTools.java:101
 #, java-format
-msgid "Account {0} doesn''t have root privilege!"
+msgid "Sorry, Account {0} doesn''t have root privilege!"
 msgstr ""

@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "backend.version",
+      "type": "java.lang.String",
+      "description": "Build backend version."
+    }
+  ]
+}
