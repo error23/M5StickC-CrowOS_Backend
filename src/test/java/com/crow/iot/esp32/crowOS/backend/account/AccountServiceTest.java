@@ -1,5 +1,6 @@
 package com.crow.iot.esp32.crowOS.backend.account;
 
+import com.crow.iot.esp32.crowOS.backend.commons.DuplicatedResourceException;
 import com.crow.iot.esp32.crowOS.backend.commons.ResourceNotFoundException;
 import com.crow.iot.esp32.crowOS.backend.security.MissingPermissionException;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -30,6 +33,9 @@ import static org.mockito.Mockito.verify;
  */
 @SpringBootTest
 class AccountServiceTest {
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@MockBean
 	AccountDao accountDao;
@@ -122,6 +128,7 @@ class AccountServiceTest {
 	@Test
 	void whenCreate_thanFail() {
 
+		this.dto.setEmail("error23.d@gmail.fr");
 		assertThrows(AuthenticationCredentialsNotFoundException.class, () -> this.accountService.create(this.dto));
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
@@ -135,12 +142,20 @@ class AccountServiceTest {
 
 		this.connectedAccount.getRoles().get(0).setPermissions(new ArrayList<>(List.of(this.permissionHolder.getCreateAccount(), this.permissionHolder.getUpdateAccountEnabled())));
 		assertThrows(MissingPermissionException.class, () -> this.accountService.create(this.dto));
+
+		this.dto.setEmail("error23.d@gmail.com");
+		SecurityTools.setConnectedAccount(this.connectedAccount);
+
+		this.connectedAccount.getRoles().get(0).setPermissions(new ArrayList<>(List.of(this.permissionHolder.getCreateAccount(), this.permissionHolder.getUpdateAccountPassword(), this.permissionHolder.getUpdateAccountEnabled())));
+		assertThrows(DuplicatedResourceException.class, () -> this.accountService.create(this.dto));
+
 	}
 
 	@Test
 	void whenCreate_thenSuccess() {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
+		this.dto.setEmail("error23.d@gmail.fr");
 
 		this.connectedAccount.getRoles().get(0).setPermissions(new ArrayList<>(List.of(this.permissionHolder.getCreateAccount(), this.permissionHolder.getUpdateAccountPassword(), this.permissionHolder.getUpdateAccountEnabled())));
 		assertThat(this.accountService.create(this.dto)).isNotNull();
@@ -186,7 +201,7 @@ class AccountServiceTest {
 		this.dto.setPassword("tata");
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.getUpdateAccountPassword());
 		this.accountService.update(this.connectedAccount, this.dto);
-		assertThat(this.connectedAccount.getPassword()).isEqualTo(this.dto.getPassword());
+		assertTrue(this.passwordEncoder.matches("tata", this.connectedAccount.getPassword()));
 
 		this.dto.setEnabled(false);
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.getUpdateAccountEnabled());
@@ -205,7 +220,7 @@ class AccountServiceTest {
 		this.accountService.update(this.account, this.dto);
 
 		assertThat(this.account.getFirstName()).isEqualTo(this.dto.getFirstName());
-		assertThat(this.account.getPassword()).isEqualTo(this.dto.getPassword());
+		assertTrue(this.passwordEncoder.matches(this.dto.getPassword(), this.account.getPassword()));
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.getUpdateAccountEnabled());
 
 	}

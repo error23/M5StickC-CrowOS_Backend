@@ -8,12 +8,13 @@ import com.crow.iot.esp32.crowOS.backend.security.role.Role;
 import com.crow.iot.esp32.crowOS.backend.security.role.RoleService;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.SecuredResource;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -26,8 +27,21 @@ import java.util.List;
 @Mapper (config = AbstractMapper.class)
 public abstract class AccountMapper implements AbstractMapper<AccountDto, Account> {
 
-	@Setter
 	private RoleService roleService;
+
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	public void setRoleService(RoleService roleService) {
+
+		this.roleService = roleService;
+	}
+
+	@Autowired
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	@Mapping (target = "password", ignore = true)
 	@Mapping (target = "enabled", ignore = true)
@@ -62,7 +76,7 @@ public abstract class AccountMapper implements AbstractMapper<AccountDto, Accoun
 
 		if (accountDto.isChanged("password")) {
 			SecurityTools.assertCanConnectedAccount(Privilege.UPDATE, SecuredResource.ACCOUNT_PASSWORD, account);
-			account.setPassword(accountDto.getPassword());
+			account.setPassword(this.passwordEncoder.encode(accountDto.getPassword()));
 		}
 
 		if (accountDto.isChanged("enabled")) {

@@ -26,7 +26,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 */
 	public ResourceNotFoundException(String resource, @NotNull Long... id) {
 
-		this.localizedMessage = I18nHelper.getI18n().trn("Resource: {0} {1} not found!", "Resources: {0} {1} not found!", id.length, resource, Arrays.toString(id));
+		this.localizedMessage = I18nHelper.getI18n().trn("Sorry, {0} with ID {1} not found!", "Sorry, {0}s with Ids {1} not found!", id.length, resource, Arrays.toString(id));
 		this.resource = resource;
 		this.ids = id;
 	}
@@ -38,7 +38,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 */
 	public ResourceNotFoundException(String resource) {
 
-		this.localizedMessage = I18nHelper.getI18n().tr("Resource: {0} not found!", resource);
+		this.localizedMessage = I18nHelper.getI18n().tr("Sorry, {0} not found!", resource);
 		this.resource = resource;
 	}
 }

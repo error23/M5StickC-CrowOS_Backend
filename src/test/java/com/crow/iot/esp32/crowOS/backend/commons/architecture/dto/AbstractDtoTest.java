@@ -39,6 +39,7 @@ class AbstractDtoTest {
 	}
 
 	@Test
+	@SuppressWarnings ("unchecked")
 	void whenClassIsCreated_thanFieldsAreInitialized() {
 
 		TestClass testClass = new TestClass();

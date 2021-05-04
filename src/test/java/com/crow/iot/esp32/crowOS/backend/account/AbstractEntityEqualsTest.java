@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author : error23
  * Created : 11/06/2020
  */
+@SuppressWarnings ("all")
 class AbstractEntityEqualsTest {
 
 	@Test

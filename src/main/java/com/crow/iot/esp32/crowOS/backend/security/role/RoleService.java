@@ -55,7 +55,7 @@ public class RoleService {
 	public List<Role> list(@NotNull List<Long> ids) {
 
 		SearchDto searchDto = new SearchDto(
-			new SearchFilter(Role_.ID, Operator.IN, ids)
+			new SearchFilter(Role_.ID, Operator.IN, ids.toArray())
 		);
 
 		return this.roleDao.search(searchDto);

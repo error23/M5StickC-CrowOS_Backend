@@ -98,7 +98,7 @@ public class SecurityTools {
 			String id = I18nHelper.getI18n().tr("unknown");
 			if (account != null) id = String.valueOf(account.getId());
 
-			MissingPermissionException e = new MissingPermissionException("Account {0} doesn''t have root privilege!", id);
+			MissingPermissionException e = new MissingPermissionException("Sorry, Account {0} doesn''t have root privilege!", id);
 			log.trace("Missing permission: ", e);
 			throw e;
 		}

@@ -1,5 +1,6 @@
 package com.crow.iot.esp32.crowOS.backend.account;
 
+import com.crow.iot.esp32.crowOS.backend.commons.DuplicatedResourceException;
 import com.crow.iot.esp32.crowOS.backend.commons.ResourceNotFoundException;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.MethodArgumentNotValidExceptionFactory;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,7 @@ public class AccountService {
 	@PreAuthorize ("hasPermission('ACCOUNT', 'CREATE')")
 	public Account create(@NotNull AccountDto accountDto) {
 
+		if (this.accountDao.get(accountDto.getEmail()) != null) throw new DuplicatedResourceException("Account", "email", accountDto.getEmail());
 		Account created = this.mapper.toEntity(accountDto);
 		this.accountDao.save(created);
 

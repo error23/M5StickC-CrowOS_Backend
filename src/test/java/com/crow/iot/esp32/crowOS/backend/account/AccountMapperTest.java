@@ -153,7 +153,7 @@ class AccountMapperTest {
 		SecurityTools.setConnectedAccount(this.account);
 
 		Account account = this.mapper.toEntity(this.accountDto);
-		assertThat(account).isEqualToComparingFieldByField(this.account);
+		assertThat(account).isEqualToIgnoringGivenFields(this.account, "password");
 
 	}
 
@@ -191,7 +191,7 @@ class AccountMapperTest {
 		this.account.getRoles().get(0).setPermissions(List.of(this.permissionHolder.getUpdateAccountPassword(), this.permissionHolder.getUpdateAccountEnabled(), this.permissionHolder.getUpdateAccountRole()));
 
 		Account account = this.mapper.merge(this.accountDto, new Account());
-		assertThat(account).isEqualToComparingFieldByField(this.account);
+		assertThat(account).isEqualToIgnoringGivenFields(this.account, "password");
 
 	}
 

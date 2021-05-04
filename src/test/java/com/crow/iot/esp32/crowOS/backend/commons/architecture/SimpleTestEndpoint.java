@@ -6,21 +6,26 @@ import com.crow.iot.esp32.crowOS.backend.commons.json.JsonException;
 import com.crow.iot.esp32.crowOS.backend.security.MissingPermissionException;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.SecuredResource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
 
-@Controller
+@Profile ("TEST")
+@SuppressWarnings ({ "SameReturnValue", "EmptyMethod" })
+@RestController
+@RequestMapping ("/simpleTest")
 public class SimpleTestEndpoint extends AbstractEndpoint {
 
 	@GetMapping ("/resourceNotFound")
@@ -36,6 +41,7 @@ public class SimpleTestEndpoint extends AbstractEndpoint {
 		throw new ResourceNotFoundException("test");
 	}
 
+	@SuppressWarnings ("ConstantConditions")
 	@GetMapping ("/badRequest")
 	public void badRequest() {
 
@@ -79,7 +85,7 @@ public class SimpleTestEndpoint extends AbstractEndpoint {
 	@GetMapping ("/missingPermissionExceptionWithMessage")
 	public void missingPermissionExceptionWithMessage() {
 
-		throw new MissingPermissionException("Account {0} doesn''t have root privilege!", 1L);
+		throw new MissingPermissionException("Sorry, Account {0} doesn''t have root privilege!", 1L);
 	}
 
 	@GetMapping ("/missingPermissionExceptionWithPrivilege")

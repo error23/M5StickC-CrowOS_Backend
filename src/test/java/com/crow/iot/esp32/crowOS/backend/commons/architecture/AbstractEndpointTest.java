@@ -75,32 +75,32 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/resourceNotFound"))
+		this.mvc.perform(get("/simpleTest/resourceNotFound"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource: test [1] not found!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, test with ID [1] not found!"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/resourceNotFound").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/resourceNotFound").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource : test [1] n'as pas ete trouvée !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, test avec l'id [1] nas pas pu être trouvée !"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
 		this.connectedAccount.setRoles(List.of(this.role));
-		this.mvc.perform(get("/resourceNotFound"))
+		this.mvc.perform(get("/simpleTest/resourceNotFound"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource: test [1] not found!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, test with ID [1] not found!"))
 		        .andExpect(jsonPath("$.stackTrace").exists());
 
 	}
@@ -110,33 +110,33 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/resourceNotFoundNoIds"))
+		this.mvc.perform(get("/simpleTest/resourceNotFoundNoIds"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource: test not found!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, test not found!"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/resourceNotFoundNoIds").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/resourceNotFoundNoIds").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource : test n'as pas ete trouvée !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, test n'as pas pu être trouvée !"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/resourceNotFoundNoIds").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/resourceNotFoundNoIds").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("RESOURCE_NOT_FOUND"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Resource : test n'as pas ete trouvée !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, test n'as pas pu être trouvée !"))
 		        .andExpect(jsonPath("$.stackTrace").exists());
 
 	}
@@ -146,7 +146,7 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/badRequest"))
+		this.mvc.perform(get("/simpleTest/badRequest"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -155,7 +155,7 @@ class AbstractEndpointTest {
 		        .andExpect(jsonPath("$.detailsHumanReadable").value("400 Bad Request"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/badRequest").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/badRequest").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -166,7 +166,7 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/badRequest").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/badRequest").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -184,7 +184,7 @@ class AbstractEndpointTest {
 
 		AccountDto dto = new AccountDto();
 
-		this.mvc.perform(post("/badRequestValidationError")
+		this.mvc.perform(post("/simpleTest/badRequestValidationError")
 			                 .contentType(MediaType.APPLICATION_JSON_VALUE)
 			                 .content(dto.toString()))
 		        .andDo(log())
@@ -199,7 +199,7 @@ class AbstractEndpointTest {
 		        .andExpect(jsonPath("$.detailsHumanReadable").value(Matchers.containsString("Field lastName must not be null ;")))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(post("/badRequestValidationError")
+		this.mvc.perform(post("/simpleTest/badRequestValidationError")
 			                 .contentType(MediaType.APPLICATION_JSON_VALUE)
 			                 .param("lc", "fr")
 			                 .content(dto.toString()))
@@ -217,7 +217,7 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(post("/badRequestValidationError")
+		this.mvc.perform(post("/simpleTest/badRequestValidationError")
 			                 .contentType(MediaType.APPLICATION_JSON_VALUE)
 			                 .param("lc", "fr")
 			                 .content(dto.toString())).andDo(log())
@@ -234,7 +234,7 @@ class AbstractEndpointTest {
 
 		dto.setFirstName("igor");
 
-		this.mvc.perform(post("/badRequestValidationError")
+		this.mvc.perform(post("/simpleTest/badRequestValidationError")
 			                 .contentType(MediaType.APPLICATION_JSON_VALUE)
 			                 .param("lc", "fr")
 			                 .content(dto.toString()))
@@ -251,7 +251,7 @@ class AbstractEndpointTest {
 		dto.setLastName("rajic");
 		dto.setEmail("error23.d@gmail.com");
 
-		this.mvc.perform(post("/badRequestValidationError")
+		this.mvc.perform(post("/simpleTest/badRequestValidationError")
 			                 .contentType(MediaType.APPLICATION_JSON_VALUE)
 			                 .param("lc", "fr")
 			                 .content(dto.toString()))
@@ -270,7 +270,7 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/missingParameters"))
+		this.mvc.perform(get("/simpleTest/missingParameters"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -279,7 +279,7 @@ class AbstractEndpointTest {
 		        .andExpect(jsonPath("$.detailsHumanReadable").value("Required Long parameter 'id' is not present"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/missingParameters").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingParameters").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -290,7 +290,7 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/missingParameters").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingParameters").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isBadRequest())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -303,7 +303,7 @@ class AbstractEndpointTest {
 	@Test
 	void whenBadCredentialsNotConnected_thanFail() throws Exception {
 
-		this.mvc.perform(get("/badCredentialsNotConnected"))
+		this.mvc.perform(get("/simpleTest/badCredentialsNotConnected"))
 		        .andDo(log())
 		        .andExpect(status().isUnauthorized())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -312,7 +312,7 @@ class AbstractEndpointTest {
 		        .andExpect(jsonPath("$.detailsHumanReadable").value("Access is denied"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/badCredentialsNotConnected").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/badCredentialsNotConnected").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isUnauthorized())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -326,13 +326,13 @@ class AbstractEndpointTest {
 	@Test
 	void whenBadCredentialsWrongPassword_thanFail() throws Exception {
 
-		this.mvc.perform(get("/badCredentialsWrongPassword")
+		this.mvc.perform(get("/simpleTest/badCredentialsWrongPassword")
 			                 .header(HttpHeaders.AUTHORIZATION, "Basic " + HttpHeaders.encodeBasicAuth("error23.d@gmail.com", "test", StandardCharsets.UTF_8))
 		                )
 		        .andDo(log())
 		        .andExpect(status().isOk());
 
-		this.mvc.perform(get("/badCredentialsWrongPassword")
+		this.mvc.perform(get("/simpleTest/badCredentialsWrongPassword")
 			                 .header(HttpHeaders.AUTHORIZATION, "Basic " + HttpHeaders.encodeBasicAuth("error23.d@gmail.com", "wrong", StandardCharsets.UTF_8))
 		                )
 		        .andDo(log())
@@ -345,7 +345,7 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/missingPermissionException"))
+		this.mvc.perform(get("/simpleTest/missingPermissionException"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -355,7 +355,7 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/missingPermissionException"))
+		this.mvc.perform(get("/simpleTest/missingPermissionException"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -370,33 +370,33 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/missingPermissionExceptionWithMessage"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithMessage"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Account 1 doesn't have root privilege!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, Account 1 doesn't have root privilege!"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/missingPermissionExceptionWithMessage").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithMessage").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Account 1 n'as pas de privilege root !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Account 1 n'as pas de privilege root !"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/missingPermissionExceptionWithMessage").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithMessage").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Account 1 n'as pas de privilege root !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Account 1 n'as pas de privilege root !"))
 		        .andExpect(jsonPath("$.stackTrace").exists());
 
 	}
@@ -406,33 +406,33 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/missingPermissionExceptionWithPrivilege"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithPrivilege"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Missing READ permission on ACCOUNT!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, missing READ permission on ACCOUNT!"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/missingPermissionExceptionWithPrivilege").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithPrivilege").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/missingPermissionExceptionWithPrivilege").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionExceptionWithPrivilege").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
 		        .andExpect(jsonPath("$.stackTrace").exists());
 
 	}
@@ -442,22 +442,22 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/missingPermissionWithPreAuthorize"))
+		this.mvc.perform(get("/simpleTest/missingPermissionWithPreAuthorize"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Missing READ permission on ACCOUNT!"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Sorry, missing READ permission on ACCOUNT!"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
-		this.mvc.perform(get("/missingPermissionWithPreAuthorize").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionWithPreAuthorize").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
 		        .andExpect(jsonPath("$.stackTrace").doesNotExist());
 
 		this.role.setRoot(false);
@@ -468,13 +468,13 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/missingPermissionWithPreAuthorize").param("lc", "fr"))
+		this.mvc.perform(get("/simpleTest/missingPermissionWithPreAuthorize").param("lc", "fr"))
 		        .andDo(log())
 		        .andExpect(status().isForbidden())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()))
 		        .andExpect(jsonPath("$.error").value("MISSING_PERMISSION"))
-		        .andExpect(jsonPath("$.detailsHumanReadable").value("Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
+		        .andExpect(jsonPath("$.detailsHumanReadable").value("Désolé, Vous n'avez pas de permission READ sur l'object ACCOUNT !"))
 		        .andExpect(jsonPath("$.stackTrace").exists());
 
 	}
@@ -484,7 +484,7 @@ class AbstractEndpointTest {
 
 		SecurityTools.setConnectedAccount(this.connectedAccount);
 
-		this.mvc.perform(get("/jsonException"))
+		this.mvc.perform(get("/simpleTest/jsonException"))
 		        .andDo(log())
 		        .andExpect(status().isInternalServerError())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -495,7 +495,7 @@ class AbstractEndpointTest {
 
 		this.connectedAccount.setRoles(List.of(this.role));
 
-		this.mvc.perform(get("/jsonException"))
+		this.mvc.perform(get("/simpleTest/jsonException"))
 		        .andDo(log())
 		        .andExpect(status().isInternalServerError())
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))

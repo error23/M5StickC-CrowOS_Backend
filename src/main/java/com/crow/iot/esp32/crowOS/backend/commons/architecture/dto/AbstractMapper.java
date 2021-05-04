@@ -11,6 +11,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * @author : error23
  * Created : 22/05/2020
  */
+@SuppressWarnings ({ "EmptyMethod", "unused", "RedundantSuppression" })
 @MapperConfig (
 	componentModel = "spring",
 	unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE,

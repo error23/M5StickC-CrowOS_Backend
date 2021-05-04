@@ -37,7 +37,7 @@ public class MissingPermissionException extends RuntimeException {
 	 */
 	public MissingPermissionException(Privilege privilege, SecuredResource securedResource) {
 
-		super(I18nHelper.getI18n().tr("Missing {0} permission on {1}!", privilege, securedResource));
+		super(I18nHelper.getI18n().tr("Sorry, missing {0} permission on {1}!", privilege, securedResource));
 		this.privilege = privilege;
 		this.securedResource = securedResource;
 	}
