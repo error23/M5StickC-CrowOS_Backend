@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class FeatureDataDto extends IdDto {
 
 	@NotNull
-	private String featureName;
+	private String featureFactoryName;
 	private String savedData;
 
 }

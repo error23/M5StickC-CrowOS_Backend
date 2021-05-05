@@ -41,8 +41,8 @@ public class FeatureData extends AbstractEntity {
 		property = "id")
 	private Long id;
 
-	@Column (name = "feature_name")
-	private String featureName;
+	@Column (name = "feature_factory_name")
+	private String featureFactoryName;
 
 	@Type (type = "jsonb")
 	@Column (name = "feature_saved_data", columnDefinition = "jsonb")
