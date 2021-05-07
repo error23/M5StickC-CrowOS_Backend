@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SuppressWarnings ("EmptyMethod")
 @SpringBootTest
-class CrowOsBackendApplicationTests {
+class CrowOsBackendApplicationTest {
 
 	@Test
 	void contextLoads() {
