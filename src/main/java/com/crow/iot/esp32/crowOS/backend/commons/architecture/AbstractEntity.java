@@ -99,7 +99,7 @@ public abstract class AbstractEntity implements Serializable {
 
 		this.created = new Date();
 		this.updated = new Date();
-		this.owner = SecurityTools.getConnectedAccount();
+		if (this.owner == null) this.owner = SecurityTools.getConnectedAccount();
 	}
 
 	/**
