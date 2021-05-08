@@ -1,19 +1,20 @@
 package com.crow.iot.esp32.crowOS.backend.featureData;
 
+import com.crow.iot.esp32.crowOS.backend.commons.architecture.AbstractEndpoint;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : error23
@@ -22,38 +23,42 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping ("/featureData")
 @RequiredArgsConstructor
-public class FeatureDataEndpoint {
+public class FeatureDataEndpoint extends AbstractEndpoint {
 
 	private final FeatureDataService featureDataService;
 
 	private final FeatureDataMapper mapper;
 
-	@GetMapping ("/{featureDataId:[0-9]+}")
+	@Operation (summary = "Lists all feature datas for connected user")
+	@GetMapping ()
 	@ResponseBody
 	@ResponseStatus (HttpStatus.OK)
-	public FeatureDataDto get(@PathVariable ("featureDataId") Long id) throws MethodArgumentNotValidException {
+	public List<FeatureDataDto> list() {
 
-		FeatureData featureData = this.featureDataService.get(id);
-		return this.mapper.toDto(featureData);
+		List<FeatureData> featureDatas = this.featureDataService.list();
 
+		ArrayList<FeatureDataDto> featureDataDtos = new ArrayList<>();
+		for (FeatureData featureData : featureDatas) {
+			featureDataDtos.add(this.mapper.toDto(featureData));
+		}
+
+		return featureDataDtos;
 	}
 
-	@PostMapping
-	@ResponseBody
-	@ResponseStatus (HttpStatus.CREATED)
-	public FeatureDataDto create(@RequestBody @Valid FeatureDataDto dto) {
-
-		FeatureData featureData = this.featureDataService.create(dto);
-		return this.mapper.toDto(featureData);
-	}
-
-	@PatchMapping
+	@Operation (summary = "Updates or creates feature data")
+	@PutMapping
 	@ResponseBody
 	@ResponseStatus (HttpStatus.ACCEPTED)
-	public FeatureDataDto update(@RequestBody FeatureDataDto dto) throws MethodArgumentNotValidException {
+	public List<FeatureDataDto> createOrUpdate(@RequestBody List<FeatureDataDto> dtos) throws MethodArgumentNotValidException {
 
-		FeatureData featureData = this.featureDataService.get(dto.getId());
-		return this.mapper.toDto(this.featureDataService.update(featureData, dto));
+		List<FeatureData> featureDatas = this.featureDataService.updateOrCreate(dtos);
+
+		ArrayList<FeatureDataDto> featureDataDtos = new ArrayList<>();
+		for (FeatureData featureData : featureDatas) {
+			featureDataDtos.add(this.mapper.toDto(featureData));
+		}
+
+		return featureDataDtos;
 	}
 
 }
