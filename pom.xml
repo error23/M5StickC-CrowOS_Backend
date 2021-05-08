@@ -56,6 +56,9 @@
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
 		<aspectj.version>1.9.6</aspectj.version>
 
+		<!-- https://mvnrepository.com/artifact/io.github.kostaskougios/cloning -->
+		<cloning.version>1.10.3</cloning.version>
+
 		<!-- Dev tools versions -->
 
 		<!-- https://mvnrepository.com/artifact/com.github.gavlyukovskiy/p6spy-spring-boot-starter -->
@@ -264,6 +267,12 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-access</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.kostaskougios</groupId>
+			<artifactId>cloning</artifactId>
+			<version>${cloning.version}</version>
 		</dependency>
 
 		<!-- jetbrains annotation -->
