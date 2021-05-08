@@ -3,7 +3,8 @@ package com.crow.iot.esp32.crowOS.backend.featureData;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.IdDto;
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author : error23
