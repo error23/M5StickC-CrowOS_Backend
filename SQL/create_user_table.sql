@@ -62,11 +62,93 @@ ALTER TABLE role_l_account ADD CONSTRAINT pk_role_l_account PRIMARY KEY (role_id
 ALTER TABLE role_l_account ADD CONSTRAINT fk_role_l_account_role_id FOREIGN KEY (role_id) REFERENCES role (id);
 ALTER TABLE role_l_account ADD CONSTRAINT fk_role_l_account_account_id FOREIGN KEY (account_id) REFERENCES account (id);
 
-INSERT INTO account(owner, first_name, last_name, email, password, locale)
-VALUES (1, 'igor', 'rajic', 'error23.d@gmail.com', '$2y$12$fKL9lE6dTmWIZUUwHbFj.eFxIq9lwt1B1.1tM1KZWhAd5KQUblV0S', 'FR_fr');
+-- update sequences set increment by 1
+ALTER SEQUENCE account_seq INCREMENT BY 1;
+ALTER SEQUENCE role_seq INCREMENT BY 1;
 
-INSERT INTO role (owner, priority, name, root)
-VALUES (1, 1, 'root', TRUE);
+-- Initial data for Account
+INSERT
+	INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+VALUES (1, NULL, 0, 'igor', 'rajic', 'error23.d@gmail.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
+
+INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+VALUES (1, NULL, 0, 'esp_new', 'esp_new', 'esp_new@crow.com', '$2a$05$m.U5saHvjfBfdMkBoOF5iun5fI29okaIV0p3ykiI8vK1L/QK49HM6', TRUE, 'fr_FR');
+
+INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+VALUES (1, NULL, 0, 'esp_old', 'esp_old', 'esp_old@crow.com', '$2a$05$gdJDXdzVE5wwAcyqcZjlH.782nDKxgIy35u6S9OJWXbJ7zEhvaCk2', TRUE, 'fr_FR');
+
+INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+VALUES (1, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev_@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
+
+-- Initial data for Role
+INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
+VALUES (1, 1, 0, 1, 'root', TRUE, NULL);
+
+INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
+VALUES (1, 1, 0, 2, 'ESP32', FALSE, '[
+  {
+    "privileges": [
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "ACCOUNT_PASSWORD"
+  },
+  {
+    "privileges": [
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "ACCOUNT"
+  },
+  {
+    "privileges": [
+      "CREATE",
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "FEATURE_DATA"
+  }
+]');
+
+INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
+VALUES (1, 1, 0, 3, 'ESP32_DEV', FALSE, '[
+  {
+    "privileges": [
+      "READ"
+    ],
+    "securedResource": "STACK_TRACE"
+  },
+  {
+    "privileges": [
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "ACCOUNT_PASSWORD"
+  },
+  {
+    "privileges": [
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "ACCOUNT"
+  },
+  {
+    "privileges": [
+      "CREATE",
+      "READ_OWN",
+      "UPDATE_OWN"
+    ],
+    "securedResource": "FEATURE_DATA"
+  }
+]');
+
+-- Initial data for Role Account linking
 
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (1, 1);
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (2, 2);
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (2, 3);
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (3, 4);
