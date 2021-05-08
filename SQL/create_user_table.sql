@@ -152,3 +152,10 @@ INSERT INTO role_l_account (role_id, account_id)
 VALUES (2, 3);
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (3, 4);
+
+-- update sequences set increment by 50
+ALTER SEQUENCE account_seq INCREMENT BY 50;
+ALTER SEQUENCE role_seq INCREMENT BY 50;
+
+SELECT setval('account_seq', (SELECT max(id) FROM account) + 1);
+SELECT setval('role_seq', (SELECT max(id) FROM role) + 1);
