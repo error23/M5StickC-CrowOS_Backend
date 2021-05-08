@@ -1,5 +1,6 @@
 package com.crow.iot.esp32.crowOS.backend.featureData;
 
+import com.crow.iot.esp32.crowOS.backend.commons.DuplicatedResourceException;
 import com.crow.iot.esp32.crowOS.backend.commons.ResourceNotFoundException;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.MethodArgumentNotValidExceptionFactory;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.Operator;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
@@ -82,6 +84,14 @@ public class FeatureDataService {
 	 */
 	@PreAuthorize ("hasPermission('FEATURE_DATA', 'CREATE')")
 	public FeatureData create(@NotNull FeatureDataDto featureDataDto) {
+
+		List<FeatureData> duplicates = this.featureDataDao.search(new SearchDto(
+			new SearchFilter(FeatureData_.OWNER, Operator.EQUALS, SecurityTools.getConnectedAccount()),
+			new SearchFilter(FeatureData_.FEATURE_FACTORY_NAME, Operator.EQUALS, featureDataDto.getFeatureFactoryName())
+
+		));
+
+		if (! CollectionUtils.isEmpty(duplicates)) throw new DuplicatedResourceException("FeatureData", "featureFactoryName", featureDataDto.getFeatureFactoryName());
 
 		FeatureData created = this.mapper.toEntity(featureDataDto);
 		this.featureDataDao.save(created);

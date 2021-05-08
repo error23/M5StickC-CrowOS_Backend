@@ -9,7 +9,6 @@ import com.crow.iot.esp32.crowOS.backend.security.role.Role;
 import com.crow.iot.esp32.crowOS.backend.security.role.RoleDao;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.rits.cloning.Cloner;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,11 +106,6 @@ class FeatureDataServiceTest {
 
 	}
 
-	@AfterEach
-	void tearDown() {
-
-	}
-
 	@Test
 	void whenList_thanFail() {
 
@@ -177,7 +171,7 @@ class FeatureDataServiceTest {
 
 		FeatureDataDto dto = new FeatureDataDto();
 		dto.setSavedData("{\"test\": 3 }");
-		dto.setFeatureFactoryName("fail");
+		dto.setFeatureFactoryName("success");
 
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.getCreateFeatureData());
 		FeatureData featureData = this.featureDataService.create(dto);
@@ -198,7 +192,7 @@ class FeatureDataServiceTest {
 		for (int i = 0; i < 20; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
 			dto.setSavedData("{\"test\": " + i + " }");
-			dto.setFeatureFactoryName("fail");
+			dto.setFeatureFactoryName("fail" + i);
 			dtos.add(dto);
 		}
 
@@ -210,8 +204,9 @@ class FeatureDataServiceTest {
 		FeatureDataDto dto = new FeatureDataDto();
 		dto.setId(this.otherAccountFeatureData.getId());
 		dto.setSavedData("{\"test\": 3 }");
-		dto.setFeatureFactoryName("fail");
+		dto.setFeatureFactoryName("fail again");
 
+		dtos.clear();
 		dtos.add(dto);
 
 		missingPermissionException = assertThrows(MissingPermissionException.class, () -> this.featureDataService.updateOrCreate(dtos));
@@ -232,7 +227,7 @@ class FeatureDataServiceTest {
 		for (int i = 0; i < 20; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
 			dto.setSavedData("{\"test\": " + i + " }");
-			dto.setFeatureFactoryName("fail");
+			dto.setFeatureFactoryName("success" + i);
 			dtos.add(dto);
 		}
 
@@ -241,23 +236,41 @@ class FeatureDataServiceTest {
 
 		this.connectedAccount.getRoles().get(0).getPermissions().get(0).getPrivileges().add(Privilege.UPDATE_OWN);
 
-		FeatureDataDto dto = new FeatureDataDto();
-		dto.setId(this.myFeatureData.getId());
-		dto.setSavedData("{\"test\": 3 }");
-		dto.setFeatureFactoryName("my");
+		dtos.clear();
+		for (int i = 20; i < 40; i++) {
+			FeatureDataDto dto = new FeatureDataDto();
+			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setFeatureFactoryName("success" + i);
+			dtos.add(dto);
 
-		dtos.add(dto);
+		}
+
+		FeatureDataDto updateMyFeatureDataDto = new FeatureDataDto();
+		updateMyFeatureDataDto.setId(this.myFeatureData.getId());
+		updateMyFeatureDataDto.setSavedData("{\"test\": 3 }");
+		updateMyFeatureDataDto.setFeatureFactoryName("my");
+		dtos.add(updateMyFeatureDataDto);
 
 		assertThat(this.featureDataService.updateOrCreate(dtos)).hasSize(21);
 
 		this.connectedAccount.getRoles().get(0).getPermissions().get(0).getPrivileges().add(Privilege.UPDATE);
 
-		FeatureDataDto dtoOther = new FeatureDataDto();
-		dtoOther.setId(this.otherAccountFeatureData.getId());
-		dtoOther.setSavedData("{\"test\": 3 }");
-		dtoOther.setFeatureFactoryName("other");
+		dtos.clear();
+		for (int i = 40; i < 60; i++) {
+			FeatureDataDto dto = new FeatureDataDto();
+			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setFeatureFactoryName("success" + i);
+			dtos.add(dto);
 
-		dtos.add(dtoOther);
+		}
+
+		FeatureDataDto updateOtherAccountFeatureDataDto = new FeatureDataDto();
+		updateOtherAccountFeatureDataDto.setId(this.otherAccountFeatureData.getId());
+		updateOtherAccountFeatureDataDto.setSavedData("{\"test\": 3 }");
+		updateOtherAccountFeatureDataDto.setFeatureFactoryName("other");
+
+		dtos.add(updateMyFeatureDataDto);
+		dtos.add(updateOtherAccountFeatureDataDto);
 
 		List<FeatureData> featureDatas = this.featureDataService.updateOrCreate(dtos);
 		assertThat(featureDatas).hasSize(22);
@@ -303,7 +316,7 @@ class FeatureDataServiceTest {
 
 		FeatureDataDto dto = new FeatureDataDto();
 		dto.setSavedData("{\"test\": 3 }");
-		dto.setFeatureFactoryName("fail");
+		dto.setFeatureFactoryName("success");
 
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.toOwn(this.permissionHolder.getUpdateFeatureData()));
 		FeatureData featureData = this.featureDataService.update(this.myFeatureData, dto);

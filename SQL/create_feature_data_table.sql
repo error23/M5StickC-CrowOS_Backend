@@ -15,7 +15,7 @@ CREATE TABLE feature_data (
 	owner BIGINT NOT NULL,
 	updated_by BIGINT,
 	version INTEGER NOT NULL DEFAULT 0,
-	feature_factory_name VARCHAR NOT NULL UNIQUE,
+	feature_factory_name VARCHAR NOT NULL,
 	feature_saved_data JSONB
 
 );
