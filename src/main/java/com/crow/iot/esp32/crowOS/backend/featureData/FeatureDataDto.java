@@ -1,6 +1,7 @@
 package com.crow.iot.esp32.crowOS.backend.featureData;
 
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.IdDto;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,6 @@ public class FeatureDataDto extends IdDto {
 
 	@NotNull
 	private String featureFactoryName;
-	private String savedData;
+	private JsonNode savedData;
 
 }

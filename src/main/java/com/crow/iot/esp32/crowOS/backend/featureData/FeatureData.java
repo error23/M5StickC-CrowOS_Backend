@@ -3,6 +3,7 @@ package com.crow.iot.esp32.crowOS.backend.featureData;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
@@ -46,6 +47,6 @@ public class FeatureData extends AbstractEntity {
 
 	@Type (type = "jsonb")
 	@Column (name = "feature_saved_data", columnDefinition = "jsonb")
-	private String savedData;
+	private JsonNode savedData;
 
 }

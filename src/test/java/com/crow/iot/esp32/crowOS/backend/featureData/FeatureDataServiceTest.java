@@ -3,6 +3,7 @@ package com.crow.iot.esp32.crowOS.backend.featureData;
 import com.crow.iot.esp32.crowOS.backend.account.Account;
 import com.crow.iot.esp32.crowOS.backend.account.AccountDao;
 import com.crow.iot.esp32.crowOS.backend.commons.ResourceNotFoundException;
+import com.crow.iot.esp32.crowOS.backend.commons.json.JsonHelper;
 import com.crow.iot.esp32.crowOS.backend.security.MissingPermissionException;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
 import com.crow.iot.esp32.crowOS.backend.security.role.Role;
@@ -84,7 +85,7 @@ class FeatureDataServiceTest {
 
 		for (int i = 0; i < 40; i++) {
 			FeatureData featureData = new FeatureData();
-			featureData.setSavedData("{\"test\": " + i + " }");
+			featureData.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			featureData.setFeatureFactoryName("featureFactoryName" + i);
 
 			if (i < 20) {
@@ -158,7 +159,7 @@ class FeatureDataServiceTest {
 	void whenCreate_thenFail() {
 
 		FeatureDataDto dto = new FeatureDataDto();
-		dto.setSavedData("{\"test\": 3 }");
+		dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		dto.setFeatureFactoryName("fail");
 
 		MissingPermissionException missingPermissionException = assertThrows(MissingPermissionException.class, () -> this.featureDataService.create(dto));
@@ -170,7 +171,7 @@ class FeatureDataServiceTest {
 	void whenCreate_thenSuccess() {
 
 		FeatureDataDto dto = new FeatureDataDto();
-		dto.setSavedData("{\"test\": 3 }");
+		dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		dto.setFeatureFactoryName("success");
 
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.getCreateFeatureData());
@@ -191,7 +192,7 @@ class FeatureDataServiceTest {
 
 		for (int i = 0; i < 20; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
-			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			dto.setFeatureFactoryName("fail" + i);
 			dtos.add(dto);
 		}
@@ -203,7 +204,7 @@ class FeatureDataServiceTest {
 
 		FeatureDataDto dto = new FeatureDataDto();
 		dto.setId(this.otherAccountFeatureData.getId());
-		dto.setSavedData("{\"test\": 3 }");
+		dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		dto.setFeatureFactoryName("fail again");
 
 		dtos.clear();
@@ -226,7 +227,7 @@ class FeatureDataServiceTest {
 
 		for (int i = 0; i < 20; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
-			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			dto.setFeatureFactoryName("success" + i);
 			dtos.add(dto);
 		}
@@ -239,7 +240,7 @@ class FeatureDataServiceTest {
 		dtos.clear();
 		for (int i = 20; i < 40; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
-			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			dto.setFeatureFactoryName("success" + i);
 			dtos.add(dto);
 
@@ -247,7 +248,7 @@ class FeatureDataServiceTest {
 
 		FeatureDataDto updateMyFeatureDataDto = new FeatureDataDto();
 		updateMyFeatureDataDto.setId(this.myFeatureData.getId());
-		updateMyFeatureDataDto.setSavedData("{\"test\": 3 }");
+		updateMyFeatureDataDto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		updateMyFeatureDataDto.setFeatureFactoryName("my");
 		dtos.add(updateMyFeatureDataDto);
 
@@ -258,7 +259,7 @@ class FeatureDataServiceTest {
 		dtos.clear();
 		for (int i = 40; i < 60; i++) {
 			FeatureDataDto dto = new FeatureDataDto();
-			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			dto.setFeatureFactoryName("success" + i);
 			dtos.add(dto);
 
@@ -266,7 +267,7 @@ class FeatureDataServiceTest {
 
 		FeatureDataDto updateOtherAccountFeatureDataDto = new FeatureDataDto();
 		updateOtherAccountFeatureDataDto.setId(this.otherAccountFeatureData.getId());
-		updateOtherAccountFeatureDataDto.setSavedData("{\"test\": 3 }");
+		updateOtherAccountFeatureDataDto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		updateOtherAccountFeatureDataDto.setFeatureFactoryName("other");
 
 		dtos.add(updateMyFeatureDataDto);
@@ -298,7 +299,7 @@ class FeatureDataServiceTest {
 	void whenUpdate_thenFail() {
 
 		FeatureDataDto dto = new FeatureDataDto();
-		dto.setSavedData("{\"test\": 3 }");
+		dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		dto.setFeatureFactoryName("fail");
 
 		MissingPermissionException missingPermissionException = assertThrows(MissingPermissionException.class, () -> this.featureDataService.update(this.myFeatureData, dto));
@@ -315,7 +316,7 @@ class FeatureDataServiceTest {
 	void whenUpdate_thenSuccess() {
 
 		FeatureDataDto dto = new FeatureDataDto();
-		dto.setSavedData("{\"test\": 3 }");
+		dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": 3 }"));
 		dto.setFeatureFactoryName("success");
 
 		this.connectedAccount.getRoles().get(0).getPermissions().add(this.permissionHolder.toOwn(this.permissionHolder.getUpdateFeatureData()));

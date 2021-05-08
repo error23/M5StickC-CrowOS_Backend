@@ -1,5 +1,6 @@
 package com.crow.iot.esp32.crowOS.backend.featureData;
 
+import com.crow.iot.esp32.crowOS.backend.commons.json.JsonHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,12 @@ class FeatureDataMapperTest {
 		this.featureData = new FeatureData();
 		this.featureData.setId(1L);
 		this.featureData.setFeatureFactoryName("featureFactoryName");
-		this.featureData.setSavedData("{\"testData\":true}");
+		this.featureData.setSavedData(JsonHelper.fromObjectToNode("{\"testData\":true}"));
 
 		this.featureDataDto = new FeatureDataDto();
 		this.featureDataDto.setId(1L);
 		this.featureDataDto.setFeatureFactoryName("featureFactoryName");
-		this.featureDataDto.setSavedData("{\"testData\":true}");
+		this.featureDataDto.setSavedData(JsonHelper.fromObjectToNode("{\"testData\":true}"));
 	}
 
 	@Test

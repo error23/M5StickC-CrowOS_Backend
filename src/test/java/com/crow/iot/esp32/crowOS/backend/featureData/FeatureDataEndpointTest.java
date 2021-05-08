@@ -2,6 +2,7 @@ package com.crow.iot.esp32.crowOS.backend.featureData;
 
 import com.crow.iot.esp32.crowOS.backend.account.Account;
 import com.crow.iot.esp32.crowOS.backend.account.AccountService;
+import com.crow.iot.esp32.crowOS.backend.commons.json.JsonHelper;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
 import com.crow.iot.esp32.crowOS.backend.security.role.Role;
 import org.apache.commons.lang3.StringUtils;
@@ -84,7 +85,7 @@ class FeatureDataEndpointTest {
 
 			FeatureDataDto dto = new FeatureDataDto();
 			dto.setId((long) i);
-			dto.setSavedData("{\"test\": " + i + " }");
+			dto.setSavedData(JsonHelper.fromObjectToNode("{\"test\": " + i + " }"));
 			dto.setFeatureFactoryName("success" + i);
 			this.dtos.add(dto);
 
