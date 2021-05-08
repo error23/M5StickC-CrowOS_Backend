@@ -66,6 +66,7 @@ public class AccountService {
 		if (this.accountDao.get(accountDto.getEmail()) != null) throw new DuplicatedResourceException("Account", "email", accountDto.getEmail());
 		Account created = this.mapper.toEntity(accountDto);
 		this.accountDao.save(created);
+		created.setOwner(created);
 
 		return created;
 	}
