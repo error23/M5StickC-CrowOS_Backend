@@ -72,52 +72,30 @@ INSERT
 VALUES (1, NULL, 0, 'igor', 'rajic', 'error23.d@gmail.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
 
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
-VALUES (2, NULL, 0, 'esp_new', 'esp_new', 'esp_new@crow.com', '$2a$05$m.U5saHvjfBfdMkBoOF5iun5fI29okaIV0p3ykiI8vK1L/QK49HM6', TRUE, 'fr_FR');
+VALUES (2, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev_@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
 
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
-VALUES (3, NULL, 0, 'esp_old', 'esp_old', 'esp_old@crow.com', '$2a$05$gdJDXdzVE5wwAcyqcZjlH.782nDKxgIy35u6S9OJWXbJ7zEhvaCk2', TRUE, 'fr_FR');
+VALUES (3, NULL, 0, 'esp_new', 'esp_new', 'esp_new@crow.com', '$2a$05$m.U5saHvjfBfdMkBoOF5iun5fI29okaIV0p3ykiI8vK1L/QK49HM6', TRUE, 'fr_FR');
 
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
-VALUES (4, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev_@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
+VALUES (4, NULL, 0, 'esp_old', 'esp_old', 'esp_old@crow.com', '$2a$05$gdJDXdzVE5wwAcyqcZjlH.782nDKxgIy35u6S9OJWXbJ7zEhvaCk2', TRUE, 'fr_FR');
 
 -- Initial data for Role
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
 VALUES (1, 1, 0, 1, 'root', TRUE, NULL);
 
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
-VALUES (1, 1, 0, 2, 'ESP32', FALSE, '[
-  {
-    "privileges": [
-      "READ_OWN",
-      "UPDATE_OWN"
-    ],
-    "securedResource": "ACCOUNT_PASSWORD"
-  },
-  {
-    "privileges": [
-      "READ_OWN",
-      "UPDATE_OWN"
-    ],
-    "securedResource": "ACCOUNT"
-  },
-  {
-    "privileges": [
-      "CREATE",
-      "READ_OWN",
-      "UPDATE_OWN"
-    ],
-    "securedResource": "FEATURE_DATA"
-  }
-]');
-
-INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
-VALUES (1, 1, 0, 3, 'ESP32_DEV', FALSE, '[
+VALUES (1, 1, 0, 2, 'DEV', FALSE, '[
   {
     "privileges": [
       "READ"
     ],
     "securedResource": "STACK_TRACE"
-  },
+  }
+]');
+
+INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
+VALUES (1, 1, 0, 3, 'ESP32', FALSE, '[
   {
     "privileges": [
       "READ_OWN",
@@ -144,12 +122,20 @@ VALUES (1, 1, 0, 3, 'ESP32_DEV', FALSE, '[
 
 -- Initial data for Role Account linking
 
+-- root for first user
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (1, 1);
+
+-- dev for second user
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (2, 2);
 INSERT INTO role_l_account (role_id, account_id)
-VALUES (2, 3);
+VALUES (3, 2);
+
+-- esp32 for other users
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (3, 3);
+
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (3, 4);
 
