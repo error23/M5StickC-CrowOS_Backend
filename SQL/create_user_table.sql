@@ -72,7 +72,7 @@ INSERT
 VALUES (1, NULL, 0, 'igor', 'rajic', 'error23.d@gmail.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
 
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
-VALUES (2, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev_@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
+VALUES (2, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
 
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (3, NULL, 0, 'esp_new', 'esp_new', 'esp_new@crow.com', '$2a$05$m.U5saHvjfBfdMkBoOF5iun5fI29okaIV0p3ykiI8vK1L/QK49HM6', TRUE, 'fr_FR');
