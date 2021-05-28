@@ -46,9 +46,7 @@ public class Account extends AbstractEntity {
 	@Access (AccessType.PROPERTY)
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "account_gen")
 	@SequenceGenerator (name = "account_gen", sequenceName = "account_seq")
-	@JsonIdentityInfo (
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+	@JsonIdentityInfo (generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Long id;
 
 	@Column (name = "first_name")

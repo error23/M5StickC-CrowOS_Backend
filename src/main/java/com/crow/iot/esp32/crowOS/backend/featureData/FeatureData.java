@@ -37,9 +37,7 @@ public class FeatureData extends AbstractEntity {
 	@Access (AccessType.PROPERTY)
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "feature_data_gen")
 	@SequenceGenerator (name = "feature_data_gen", sequenceName = "feature_data_seq")
-	@JsonIdentityInfo (
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+	@JsonIdentityInfo (generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Long id;
 
 	@Column (name = "feature_factory_name")
