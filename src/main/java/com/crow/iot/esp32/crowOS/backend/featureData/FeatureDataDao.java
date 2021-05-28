@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FeatureDataDao extends AbstractDao<FeatureData> {
 
+	/**
+	 * Creates new Feature data dao
+	 */
 	public FeatureDataDao() {
 
 		super();
