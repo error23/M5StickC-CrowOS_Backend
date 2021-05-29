@@ -1,4 +1,4 @@
-package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
+package com.crow.iot.esp32.crowOS.backend.printer;
 
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.IdDto;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class DreamerPrinterMinimalDto extends IdDto {
+public class PrinterMinimalDto extends IdDto {
 
 	private String machineType;
 	private String machineName;

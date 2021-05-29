@@ -1,4 +1,4 @@
-package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
+package com.crow.iot.esp32.crowOS.backend.printer;
 
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.AbstractMapper;
 import org.mapstruct.Mapper;
@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
  * Created : 29/05/2021
  */
 @Mapper (config = AbstractMapper.class)
-public abstract class DreamerPrinterMinimalMapper implements AbstractMapper<DreamerPrinterMinimalDto, DreamerPrinter> {
+public abstract class PrinterMinimalMapper implements AbstractMapper<PrinterMinimalDto, Printer> {
 
 }

@@ -1,4 +1,4 @@
-package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
+package com.crow.iot.esp32.crowOS.backend.printer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class DreamerPrinterDto extends DreamerPrinterMinimalDto {
+public class PrinterDto extends PrinterMinimalDto {
 
 	private String machineIp;
 	private Integer machinePort;
