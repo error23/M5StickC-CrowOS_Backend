@@ -51,20 +51,20 @@ public class PrinterEndpoint extends AbstractEndpoint {
 	}
 
 	@Operation (summary = "Get printer by its id")
-	@GetMapping ("/{dreamerPrinterId:[0-9]+}")
+	@GetMapping ("/{printerId:[0-9]+}")
 	@ResponseBody
 	@ResponseStatus (HttpStatus.OK)
-	public PrinterDto get(@PathVariable ("dreamerPrinterId") Long id) throws MethodArgumentNotValidException {
+	public PrinterDto get(@PathVariable ("printerId") Long id) throws MethodArgumentNotValidException {
 
 		Printer printer = this.printerService.get(id);
 		return this.printerMapper.toDto(printer);
 	}
 
 	@Operation (summary = "Updates printer color")
-	@PatchMapping ("/{dreamerPrinterId:[0-9]+}")
+	@PatchMapping ("/{printerId:[0-9]+}")
 	@ResponseBody
 	@ResponseStatus (HttpStatus.ACCEPTED)
-	public void updateLedColor(@PathVariable ("dreamerPrinterId") Long id, @RequestParam @Valid @NotNull ColorRGB color) throws MethodArgumentNotValidException {
+	public void updateLedColor(@PathVariable ("printerId") Long id, @RequestParam @Valid @NotNull ColorRGB color) throws MethodArgumentNotValidException {
 
 		Printer printer = this.printerService.get(id);
 		this.printerService.updateLedColor(printer, color);

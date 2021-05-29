@@ -6,14 +6,11 @@ import com.crow.iot.esp32.crowOS.backend.commons.architecture.MethodArgumentNotV
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.Operator;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.SearchDto;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.SearchFilter;
-import com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer.DreamerClient;
-import com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer.DreamerPrinter_;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.SecuredResource;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -36,8 +33,6 @@ public class PrinterService {
 
 	private final PrinterMapper mapper;
 
-	private final DreamerClient client;
-
 	/**
 	 * List all {@link Printer} for connected account
 	 *
@@ -48,9 +43,9 @@ public class PrinterService {
 
 		SearchDto dto = new SearchDto();
 
-		if (! SecurityTools.canConnectedAccount(Privilege.READ, SecuredResource.DREAMER_PRINTER, null)) {
+		if (! SecurityTools.canConnectedAccount(Privilege.READ, SecuredResource.PRINTER, null)) {
 			dto.addFilter(new SearchFilter(
-				DreamerPrinter_.OWNER,
+				Printer_.OWNER,
 				Operator.EQUALS,
 				SecurityTools.getConnectedAccount()));
 		}
@@ -62,7 +57,7 @@ public class PrinterService {
 	/**
 	 * Retrieves one {@link Printer} from database
 	 *
-	 * @param id of dreamer printer to retrieve
+	 * @param id of printer to retrieve
 	 * @return retrieved {@link Printer}
 	 */
 	@PostAuthorize ("hasPermission(returnObject, 'READ')")
@@ -82,12 +77,12 @@ public class PrinterService {
 	 * @param printerDto to create
 	 * @return created {@link Printer}
 	 */
-	@PreAuthorize ("hasPermission('DREAMER_PRINTER', 'CREATE')")
+	@PreAuthorize ("hasPermission('PRINTER', 'CREATE')")
 	public Printer create(@NotNull PrinterDto printerDto) {
 
 		List<Printer> duplicates = this.printerDao.search(new SearchDto(
-			new SearchFilter(DreamerPrinter_.OWNER, Operator.EQUALS, SecurityTools.getConnectedAccount()),
-			new SearchFilter(DreamerPrinter_.MACHINE_NAME, Operator.EQUALS, printerDto.getMachineName())
+			new SearchFilter(Printer_.OWNER, Operator.EQUALS, SecurityTools.getConnectedAccount()),
+			new SearchFilter(Printer_.MACHINE_NAME, Operator.EQUALS, printerDto.getMachineName())
 
 		));
 
@@ -115,19 +110,15 @@ public class PrinterService {
 	}
 
 	/**
-	 * Updates dreamerPrinter color only
+	 * Updates {@link Printer} color only
 	 *
 	 * @param printer to update
 	 * @param color   to update with
 	 */
-	@PreAuthorize ("hasPermission('DREAMER_PRINTER_COLOR','UPDATE')")
+	@PreAuthorize ("hasPermission('PRINTER_COLOR','UPDATE')")
 	public void updateLedColor(Printer printer, ColorRGB color) {
 
 		printer.setLedColor(color);
 	}
 
-	@Scheduled (fixedDelayString = "${flashforge.dreamer.schedule.delay}")
-	private void synchronizePrinter() {
-
-	}
 }
