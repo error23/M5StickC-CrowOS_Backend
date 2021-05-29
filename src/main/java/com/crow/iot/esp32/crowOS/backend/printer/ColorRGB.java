@@ -1,4 +1,4 @@
-package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
+package com.crow.iot.esp32.crowOS.backend.printer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
+package com.crow.iot.esp32.crowOS.backend.printer;
 
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -25,28 +25,28 @@ import javax.persistence.Table;
  */
 @Entity
 @DynamicUpdate
-@Table (name = "flash_forge_dreamer")
+@Table (name = "printer")
 @Getter
 @Setter
-public class DreamerPrinter extends AbstractEntity {
+public class Printer extends AbstractEntity {
 
 	private static final long serialVersionUID = 4042036579697512764L;
 
 	@Id
 	@Column (name = "id", nullable = false)
 	@Access (AccessType.PROPERTY)
-	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "flash_forge_dreamer_gen")
-	@SequenceGenerator (name = "flash_forge_dreamer_gen", sequenceName = "flash_forge_dreamer_seq")
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "printer_gen")
+	@SequenceGenerator (name = "printer_gen", sequenceName = "printer_seq")
 	@JsonIdentityInfo (generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Long id;
 
 	@Column (name = "machine_type")
 	private String machineType;
 
-	@Column (name = "machine_name", unique = true)
+	@Column (name = "machine_name")
 	private String machineName;
 
-	@Column (name = "machine_ip")
+	@Column (name = "machine_ip", unique = true)
 	private String machineIp;
 
 	@Column (name = "machine_port")

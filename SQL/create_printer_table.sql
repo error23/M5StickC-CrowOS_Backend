@@ -3,24 +3,24 @@ DROP TYPE IF EXISTS COLOR_RGB CASCADE;
 CREATE TYPE COLOR_RGB AS ENUM ('RED', 'GREEN', 'BLUE');
 
 -- flash forge dreamer
-DROP SEQUENCE IF EXISTS flash_forge_dreamer_seq CASCADE;
-CREATE SEQUENCE flash_forge_dreamer_seq
+DROP SEQUENCE IF EXISTS printer_seq CASCADE;
+CREATE SEQUENCE printer_seq
 	START WITH 1
 	INCREMENT BY 50
 	NO MINVALUE
 	NO MAXVALUE
 	CACHE 1;
 
-DROP TABLE IF EXISTS flash_forge_dreamer CASCADE;
-CREATE TABLE flash_forge_dreamer (
-	id BIGINT DEFAULT nextval('flash_forge_dreamer_seq'),
+DROP TABLE IF EXISTS printer CASCADE;
+CREATE TABLE printer (
+	id BIGINT DEFAULT nextval('printer_seq'),
 	created TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
 	updated TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
 	owner BIGINT NOT NULL,
 	updated_by BIGINT,
 	version INTEGER NOT NULL DEFAULT 0,
 	machine_type VARCHAR,
-	machine_name VARCHAR UNIQUE,
+	machine_name VARCHAR,
 	machine_ip VARCHAR UNIQUE,
 	machine_port INTEGER,
 	firmware VARCHAR,
@@ -37,5 +37,5 @@ CREATE TABLE flash_forge_dreamer (
 	temperature_bed INTEGER
 );
 
-ALTER TABLE flash_forge_dreamer ADD CONSTRAINT pk_flash_forge_dreamer PRIMARY KEY (id);
+ALTER TABLE printer ADD CONSTRAINT pk_printer PRIMARY KEY (id);
 
