@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
  * Created : 29/05/2021
  */
 @Mapper (config = AbstractMapper.class)
-public abstract class DreamerPrinterListMapper implements AbstractMapper<DreamerPrinterListDto, DreamerPrinter> {
+public abstract class DreamerPrinterMinimalMapper implements AbstractMapper<DreamerPrinterMinimalDto, DreamerPrinter> {
 
 }

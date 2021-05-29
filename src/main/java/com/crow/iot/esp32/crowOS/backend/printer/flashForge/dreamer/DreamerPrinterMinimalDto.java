@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class DreamerPrinterListDto extends IdDto {
+public class DreamerPrinterMinimalDto extends IdDto {
 
 	private String machineType;
 	private String machineName;
