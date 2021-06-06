@@ -71,6 +71,10 @@ INSERT
 	INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (1, NULL, 0, 'igor', 'rajic', 'error23.d@gmail.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
 
+INSERT
+	INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+VALUES (1, NULL, 0, 'flash forge', 'dreamer', 'flash_forge_dreamer@crow.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
+
 INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (2, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
 
@@ -84,8 +88,32 @@ VALUES (4, NULL, 0, 'esp_old', 'esp_old', 'esp_old@crow.com', '$2a$05$gdJDXdzVE5
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
 VALUES (1, 1, 0, 1, 'root', TRUE, NULL);
 
+INSERT INTO public.role (owner, updated_by, version, priority, name, root, permissions)
+VALUES (1, 1, 1, 2, 'PRINTER_ROOT', FALSE, '[
+  {
+    "securedResource": "PRINTER",
+    "privileges": [
+      "CREATE",
+      "READ",
+      "UPDATE"
+    ]
+  },
+  {
+    "securedResource": "PRINTER_COLOR",
+    "privileges": [
+      "UPDATE"
+    ]
+  },
+  {
+    "securedResource": "PRINTER_MACHINE_ADRESSE",
+    "privileges": [
+      "UPDATE"
+    ]
+  }
+]');
+
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
-VALUES (1, 1, 0, 2, 'DEV', FALSE, '[
+VALUES (1, 1, 0, 3, 'DEV', FALSE, '[
   {
     "privileges": [
       "READ"
@@ -95,7 +123,7 @@ VALUES (1, 1, 0, 2, 'DEV', FALSE, '[
 ]');
 
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
-VALUES (1, 1, 0, 3, 'ESP32', FALSE, '[
+VALUES (1, 1, 0, 4, 'ESP32', FALSE, '[
   {
     "privileges": [
       "READ_OWN",
@@ -117,6 +145,18 @@ VALUES (1, 1, 0, 3, 'ESP32', FALSE, '[
       "UPDATE_OWN"
     ],
     "securedResource": "FEATURE_DATA"
+  },
+  {
+    "securedResource": "PRINTER",
+    "privileges": [
+      "READ"
+    ]
+  },
+  {
+    "securedResource": "PRINTER_COLOR",
+    "privileges": [
+      "UPDATE"
+    ]
   }
 ]');
 
@@ -126,18 +166,24 @@ VALUES (1, 1, 0, 3, 'ESP32', FALSE, '[
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (1, 1);
 
--- dev for second user
+-- printer root for second user
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (2, 2);
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (3, 2);
 
--- esp32 for other users
+-- dev for third user
 INSERT INTO role_l_account (role_id, account_id)
 VALUES (3, 3);
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (4, 3);
+
+-- esp32 for other users
+INSERT INTO role_l_account (role_id, account_id)
+VALUES (4, 4);
 
 INSERT INTO role_l_account (role_id, account_id)
-VALUES (3, 4);
+VALUES (4, 5);
 
 -- update sequences set increment by 50
 ALTER SEQUENCE account_seq INCREMENT BY 50;
