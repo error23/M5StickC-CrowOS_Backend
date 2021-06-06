@@ -5,6 +5,7 @@ package com.crow.iot.esp32.crowOS.backend.security.role.permission;
  * Created : 13/04/2020
  */
 public enum SecuredResource {
+
 	STACK_TRACE,
 
 	ACCOUNT,
@@ -17,5 +18,6 @@ public enum SecuredResource {
 	FEATURE_DATA,
 
 	PRINTER,
-	PRINTER_COLOR
+	PRINTER_COLOR,
+	PRINTER_MACHINE_ADRESSE
 }

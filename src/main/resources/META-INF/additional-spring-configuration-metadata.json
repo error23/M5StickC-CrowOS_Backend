@@ -4,6 +4,11 @@
       "name": "backend.version",
       "type": "java.lang.String",
       "description": "Build backend version."
+    },
+    {
+      "name": "flashforge.dreamer.schedule.delay",
+      "type": "java.lang.String",
+      "description": "FlashForge Dreamer synch delay."
     }
   ]
 }

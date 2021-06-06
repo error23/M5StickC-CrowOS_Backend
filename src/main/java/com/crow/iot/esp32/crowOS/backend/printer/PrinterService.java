@@ -6,11 +6,13 @@ import com.crow.iot.esp32.crowOS.backend.commons.architecture.MethodArgumentNotV
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.Operator;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.SearchDto;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.search.SearchFilter;
+import com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer.FlashForgeDreamerClient;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.SecuredResource;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,8 @@ public class PrinterService {
 	private final PrinterDao printerDao;
 
 	private final PrinterMapper mapper;
+
+	private final FlashForgeDreamerClient flashForgeDreamerClient;
 
 	/**
 	 * List all {@link Printer} for connected account
@@ -119,6 +123,37 @@ public class PrinterService {
 	public void updateLedColor(Printer printer, ColorRGB color) {
 
 		printer.setLedColor(color);
+	}
+
+	/**
+	 * Updates {@link Printer} machine ip and port values
+	 *
+	 * @param printer     to update for
+	 * @param machineIp   to update
+	 * @param machinePort to update
+	 */
+	@PreAuthorize ("hasPermission('PRINTER_MACHINE_ADRESSE', 'UPDATE')")
+	public void updateMachineAdresse(Printer printer, String machineIp, Integer machinePort) {
+
+		printer.setMachineIp(machineIp);
+		printer.setMachinePort(machinePort);
+	}
+
+	/**
+	 * Synchronize database printers with the physic printers for {@link FlashForgeDreamerClient}.
+	 */
+	@Scheduled (fixedDelayString = "${flashforge.dreamer.schedule.delay}")
+	public void synchronizeWithFlashForgeDreamer() {
+
+		List<Printer> printers = this.list();
+
+		for (Printer printer : printers) {
+			this.flashForgeDreamerClient.updateGeneralInfo(printer);
+			this.flashForgeDreamerClient.updateStatus(printer);
+			this.flashForgeDreamerClient.updateTemperature(printer);
+			this.flashForgeDreamerClient.updatePositions(printer);
+		}
+
 	}
 
 }

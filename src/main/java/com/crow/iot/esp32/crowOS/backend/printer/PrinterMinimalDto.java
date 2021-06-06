@@ -14,4 +14,6 @@ public class PrinterMinimalDto extends IdDto {
 
 	private String machineType;
 	private String machineName;
+	private String machineIp;
+	private Integer machinePort;
 }

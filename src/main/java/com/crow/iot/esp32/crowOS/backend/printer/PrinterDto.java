@@ -11,9 +11,6 @@ import lombok.Setter;
 @Setter
 public class PrinterDto extends PrinterMinimalDto {
 
-	private String machineIp;
-	private Integer machinePort;
-
 	private String firmware;
 	private Integer extruderNumber;
 	private ColorRGB ledColor;
