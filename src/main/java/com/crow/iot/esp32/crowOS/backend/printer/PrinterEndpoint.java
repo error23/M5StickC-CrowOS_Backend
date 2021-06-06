@@ -61,13 +61,24 @@ public class PrinterEndpoint extends AbstractEndpoint {
 	}
 
 	@Operation (summary = "Updates printer color")
-	@PatchMapping ("/{printerId:[0-9]+}")
+	@PatchMapping ("/{printerId:[0-9]+}/color")
 	@ResponseBody
 	@ResponseStatus (HttpStatus.ACCEPTED)
 	public void updateLedColor(@PathVariable ("printerId") Long id, @RequestParam @Valid @NotNull ColorRGB color) throws MethodArgumentNotValidException {
 
 		Printer printer = this.printerService.get(id);
 		this.printerService.updateLedColor(printer, color);
+
+	}
+
+	@Operation (summary = "Updates printer adresse")
+	@PatchMapping ("/{printerId:[0-9]+}/adressse")
+	@ResponseBody
+	@ResponseStatus (HttpStatus.ACCEPTED)
+	public void updateMachineAdresse(@PathVariable ("printerId") Long id, @RequestParam @Valid @NotNull String machineIp, @RequestParam @Valid @NotNull Integer machinePort) throws MethodArgumentNotValidException {
+
+		Printer printer = this.printerService.get(id);
+		this.printerService.updateMachineAdresse(printer, machineIp, machinePort);
 
 	}
 
