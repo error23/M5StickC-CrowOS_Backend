@@ -6,9 +6,9 @@
       "description": "Build backend version."
     },
     {
-      "name": "flashforge.dreamer.schedule.delay",
+      "name": "flashforge.dreamer.schedule.retriesUntilFail",
       "type": "java.lang.String",
-      "description": "FlashForge Dreamer synch delay."
+      "description": "FlashForge Dreamer send message waiting for answer times."
     }
   ]
 }
