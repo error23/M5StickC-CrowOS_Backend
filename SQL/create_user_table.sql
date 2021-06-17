@@ -68,27 +68,27 @@ ALTER SEQUENCE role_seq INCREMENT BY 1;
 
 -- Initial data for Account
 INSERT
-	INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+	INTO account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (1, NULL, 0, 'igor', 'rajic', 'error23.d@gmail.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
 
 INSERT
-	INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+	INTO account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (1, NULL, 0, 'flash forge', 'dreamer', 'flash_forge_dreamer@crow.com', '$2a$05$6N6fLyaffEU7VTEA25tR/.q/Oi698KVS28dfrE00S36t4rRAScvUa', TRUE, 'fr_FR');
 
-INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+INSERT INTO account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (2, NULL, 0, 'esp_DEV', 'esp_DEV', 'esp_dev@crow.com', '$2a$05$57Pkv5qmzjNULz4O.eK.w.B0kuFJeDl9UBICgWeapyrBu.bHt287W', TRUE, 'fr_FR');
 
-INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+INSERT INTO account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (3, NULL, 0, 'esp_new', 'esp_new', 'esp_new@crow.com', '$2a$05$m.U5saHvjfBfdMkBoOF5iun5fI29okaIV0p3ykiI8vK1L/QK49HM6', TRUE, 'fr_FR');
 
-INSERT INTO public.account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
+INSERT INTO account (owner, updated_by, version, first_name, last_name, email, password, enabled, locale)
 VALUES (4, NULL, 0, 'esp_old', 'esp_old', 'esp_old@crow.com', '$2a$05$gdJDXdzVE5wwAcyqcZjlH.782nDKxgIy35u6S9OJWXbJ7zEhvaCk2', TRUE, 'fr_FR');
 
 -- Initial data for Role
 INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
 VALUES (1, 1, 0, 1, 'root', TRUE, NULL);
 
-INSERT INTO public.role (owner, updated_by, version, priority, name, root, permissions)
+INSERT INTO role (owner, updated_by, version, priority, name, root, permissions)
 VALUES (1, 1, 1, 2, 'PRINTER_ROOT', FALSE, '[
   {
     "securedResource": "PRINTER",
