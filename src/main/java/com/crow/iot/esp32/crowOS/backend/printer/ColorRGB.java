@@ -2,6 +2,8 @@ package com.crow.iot.esp32.crowOS.backend.printer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author : error23
@@ -19,4 +21,12 @@ public enum ColorRGB {
 	private int green;
 	private int blue;
 
+	@NotNull
+	@Contract (pure = true)
+	@Override
+	public String toString() {
+
+		return "r" + this.red + " g" + this.green + " b" + this.blue + " F0";
+
+	}
 }
