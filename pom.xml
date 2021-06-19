@@ -71,7 +71,7 @@
 
 		<i18n.package>com.crow.translations</i18n.package>
 		<i18.poDirectory>src/main/resources/i18n</i18.poDirectory>
-		<i18n.keywords>-F -ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -kMissingPermissionException -k</i18n.keywords>
+		<i18n.keywords>-F -ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -kMissingPermissionException -kFlashForgeDreamerClientException -k</i18n.keywords>
 
 		<!-- https://mvnrepository.com/artifact/com.googlecode.gettext-commons/gettext-commons -->
 		<gettext-commons.version>0.9.8</gettext-commons.version>

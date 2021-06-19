@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: template\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-05 00:36+0200\n"
+"POT-Creation-Date: 2021-06-19 13:17+0200\n"
 "Last-Translator: Rajic Igor <error23.d@gmail.com>\n"
 "Language-Team: Crow\n"
 "Language: fr\n"
@@ -47,6 +47,14 @@ msgstr "Champ {0}"
 #: com/crow/iot/esp32/crowOS/backend/commons/architecture/MethodArgumentNotValidExceptionFactory.java:31
 msgid "must not be null"
 msgstr "ne doit pas être nul"
+
+#: com/crow/iot/esp32/crowOS/backend/printer/flashForge/dreamer/FlashForgeDreamerClient.java:138
+msgid "Error retrieving command "
+msgstr "Erreur impossible de lire la réponse "
+
+#: com/crow/iot/esp32/crowOS/backend/printer/flashForge/dreamer/FlashForgeDreamerClient.java:149
+msgid "Cannot send command to FlashForge Dreamer : "
+msgstr "Impossible d'envoyer la commande a FlashForge Dreamer : "
 
 #: com/crow/iot/esp32/crowOS/backend/security/MissingPermissionException.java:40
 #, java-format
