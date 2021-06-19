@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author : error23
@@ -68,7 +69,7 @@ class FlashForgeDreamerClientTest {
 	}
 
 	@Test
-	void updateTemperature_thanSuccess() {
+	void whenUpdateTemperature_thanSuccess() {
 
 		String answer = "CMD M105 Received.\n" +
 			"T0:35 /0 T1:20 /0 B:25 /0\n" +
@@ -90,7 +91,7 @@ class FlashForgeDreamerClientTest {
 	}
 
 	@Test
-	void updatePositions_thanSuccess() {
+	void whenUpdatePositions_thanSuccess() {
 
 		String answer = "CMD M114 Received.\n" +
 			"X:123.001 Y:79.9912 Z:10.5 A:0 B:0\n" +
@@ -112,7 +113,7 @@ class FlashForgeDreamerClientTest {
 	}
 
 	@Test
-	void setColor_thanSuccess() {
+	void whenSetColor_thanSuccess() {
 
 		Mockito.doReturn("")
 		       .when(this.client)
@@ -127,10 +128,12 @@ class FlashForgeDreamerClientTest {
 		                                                          ArgumentMatchers.eq(FlashForgeDreamerCommands.SET_COLOR),
 		                                                          ArgumentMatchers.eq("r255 g0 b0 F0"));
 
+		assertThat(this.printer.getLedColor()).isEqualTo(ColorRGB.RED);
+
 	}
 
 	@Test
-	void sendHello_thanSuccess() {
+	void whenSendHello_thanSuccess() {
 
 		Mockito.doReturn("")
 		       .when(this.client)
@@ -148,7 +151,14 @@ class FlashForgeDreamerClientTest {
 	}
 
 	@Test
-	void sendBuy_thanSuccess() {
+	void whenSendHello_thanFail() {
+
+		assertThrows(FlashForgeDreamerClientException.class, () -> this.client.sendHello(this.printer));
+
+	}
+
+	@Test
+	void whenSendBuy_thanSuccess() {
 
 		Mockito.doReturn("")
 		       .when(this.client)
