@@ -128,8 +128,6 @@ class FlashForgeDreamerClientTest {
 		                                                          ArgumentMatchers.eq(FlashForgeDreamerCommands.SET_COLOR),
 		                                                          ArgumentMatchers.eq("r255 g0 b0 F0"));
 
-		assertThat(this.printer.getLedColor()).isEqualTo(ColorRGB.RED);
-
 	}
 
 	@Test

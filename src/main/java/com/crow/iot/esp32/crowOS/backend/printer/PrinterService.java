@@ -12,7 +12,6 @@ import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.SecuredResource;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,9 @@ public class PrinterService {
 				SecurityTools.getConnectedAccount()));
 		}
 
-		return this.printerDao.search(dto);
+		List<Printer> printers = this.printerDao.search(dto);
+		this.synchronizeWithFlashForgeDreamer(printers);
+		return printers;
 
 	}
 
@@ -72,6 +73,8 @@ public class PrinterService {
 		Printer printer = this.printerDao.get(id);
 		if (printer == null) throw new ResourceNotFoundException("Printer", id);
 
+		this.synchronizeWithFlashForgeDreamer(List.of(printer));
+
 		return printer;
 	}
 
@@ -87,7 +90,6 @@ public class PrinterService {
 		List<Printer> duplicates = this.printerDao.search(new SearchDto(
 			new SearchFilter(Printer_.OWNER, Operator.EQUALS, SecurityTools.getConnectedAccount()),
 			new SearchFilter(Printer_.MACHINE_NAME, Operator.EQUALS, printerDto.getMachineName())
-
 		));
 
 		if (! CollectionUtils.isEmpty(duplicates)) throw new DuplicatedResourceException("Printer", "machineName", printerDto.getMachineName());
@@ -122,6 +124,9 @@ public class PrinterService {
 	@PreAuthorize ("hasPermission('PRINTER_COLOR','UPDATE')")
 	public void updateLedColor(Printer printer, ColorRGB color) {
 
+		this.flashForgeDreamerClient.sendHello(printer);
+		this.flashForgeDreamerClient.setColor(printer, color);
+		this.flashForgeDreamerClient.sendBuy(printer);
 		printer.setLedColor(color);
 	}
 
@@ -137,21 +142,22 @@ public class PrinterService {
 
 		printer.setMachineIp(machineIp);
 		printer.setMachinePort(machinePort);
+		this.synchronizeWithFlashForgeDreamer(List.of(printer));
 	}
 
 	/**
-	 * Synchronize database printers with the physic printers for {@link FlashForgeDreamerClient}.
+	 * Synchronize printers with the physic printers for {@link FlashForgeDreamerClient}.
+	 *
+	 * @param printers to synchronize
 	 */
-	@Scheduled (fixedDelayString = "${flashforge.dreamer.schedule.delay}")
-	public void synchronizeWithFlashForgeDreamer() {
-
-		List<Printer> printers = this.list();
+	public void synchronizeWithFlashForgeDreamer(List<Printer> printers) {
 
 		for (Printer printer : printers) {
+			this.flashForgeDreamerClient.sendHello(printer);
 			this.flashForgeDreamerClient.updateGeneralInfo(printer);
-			this.flashForgeDreamerClient.updateStatus(printer);
 			this.flashForgeDreamerClient.updateTemperature(printer);
 			this.flashForgeDreamerClient.updatePositions(printer);
+			this.flashForgeDreamerClient.sendBuy(printer);
 		}
 
 	}
