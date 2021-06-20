@@ -21,7 +21,7 @@ jobs:
       # Setup new maven version
       - run:
           name: crow version manager
-          command: root/bin/setMavenVersion.sh
+          command: /root/bin/setMavenVersion.sh
 
       # Build maven
       - run:
