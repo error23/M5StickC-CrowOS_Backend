@@ -5,7 +5,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: error23/spring-boot
+      - image: error23/circle_ci_builder
 
     steps:
 
@@ -43,7 +43,7 @@ jobs:
   release:
 
     docker:
-      - image: error23/spring-boot
+      - image: error23/circle_ci_builder
 
     steps:
       # Tell to circleCi that we need to build docker
