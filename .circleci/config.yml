@@ -21,7 +21,7 @@ jobs:
       # Setup new maven version
       - run:
           name: crow version manager
-          command: setMavenVersion.sh
+          command: bin/setMavenVersion.sh
 
       # Build maven
       - run:
@@ -57,7 +57,7 @@ jobs:
       # Build and push docker image
       - run:
           name: Build and push docker image
-          command: buildAndDeployDockerImage.sh
+          command: bin/buildAndDeployDockerImage.sh
 
 workflows:
   version: 2
