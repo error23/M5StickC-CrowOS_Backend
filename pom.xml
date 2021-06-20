@@ -17,16 +17,38 @@
 	<name>M5StickC-CrowOS_Backend</name>
 	<description>M5StickC crowOs backend module</description>
 	<inceptionYear>2021</inceptionYear>
-
 	<url>https://github.com/error23/M5StickC-CrowOS_Backend</url>
+
 	<organization>
 		<name>Crow</name>
 		<url>https://github.com/error23</url>
 	</organization>
 
+	<developers>
+		<developer>
+			<id>error23</id>
+			<name>error23</name>
+			<email>error23.d@gmail.com</email>
+			<organization>Crow</organization>
+		</developer>
+	</developers>
+
+	<mailingLists>
+		<mailingList>
+			<name>Igor Rajic</name>
+			<post>error23.d@gmail.com</post>
+		</mailingList>
+	</mailingLists>
+
 	<issueManagement>
 		<url>https://github.com/error23/M5StickC-CrowOS_Backend/issues</url>
 	</issueManagement>
+
+	<scm>
+		<url>https://github.com/error23/M5StickC-CrowOS_Backend</url>
+		<connection>scm:git:git://github.com/error23/M5StickC-CrowOS_Backend.git</connection>
+		<developerConnection>scm:git:git@github.com:error23/M5StickC-CrowOS_Backend.git</developerConnection>
+	</scm>
 
 	<properties>
 		<encoding>UTF-8</encoding>
@@ -84,22 +106,6 @@
 		<h2.version>1.4.200</h2.version>
 
 	</properties>
-
-	<developers>
-		<developer>
-			<id>error23</id>
-			<name>error23</name>
-			<email>error23.d@gmail.com</email>
-			<organization>Crow</organization>
-		</developer>
-	</developers>
-
-	<mailingLists>
-		<mailingList>
-			<name>Igor Rajic</name>
-			<post>error23.d@gmail.com</post>
-		</mailingList>
-	</mailingLists>
 
 	<dependencies>
 
@@ -287,13 +293,32 @@
 
 	<build>
 
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>Dockerfile</exclude>
+					<exclude>SQL/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>Dockerfile</include>
+					<include>SQL/**</include>
+				</includes>
+				<targetPath>${project.build.directory}</targetPath>
+			</resource>
+		</resources>
+
 		<plugins>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>com.nickwongdev</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
