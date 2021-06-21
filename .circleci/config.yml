@@ -4,6 +4,8 @@ version: 2.1
 
 jobs:
   build-and-test:
+    working_directory: /root
+    shell: /bin/bash
     docker:
       - image: error23/circle_ci_builder
 
