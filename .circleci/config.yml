@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: retest
-          command: java --version
+          command: mvn --version
 
       # Build maven
       - run:
