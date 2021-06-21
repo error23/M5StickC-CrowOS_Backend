@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: mvn -Dmaven.compiler.fork=true -Dmaven.compiler.executable=/usr/java/jdk-11.0.11/bin/javac -B clean install
+          command: /usr/share/maven/bin/mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
