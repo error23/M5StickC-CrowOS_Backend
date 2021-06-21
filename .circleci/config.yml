@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: retest
-          command: JAVA_HOME=/usr/java/jdk-11.0.11/&& mvn -B clean install && mvn --version
+          command: mvn --version -Djavacpp.platform=linux-x86_64
 
       # Build maven
       - run:
