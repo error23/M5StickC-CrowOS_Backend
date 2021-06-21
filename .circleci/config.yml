@@ -21,12 +21,12 @@ jobs:
       # Setup new maven version
       - run:
           name: crow version manager
-          command: setMavenVersion.sh
+          command: echo test
 
       # Build maven
       - run:
           name: build
-          command: /usr/bin/sh -c mvn clean install
+          command: mvn clean install
 
       - run:
           name: Save test results
