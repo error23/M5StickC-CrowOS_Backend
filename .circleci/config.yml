@@ -37,7 +37,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: mvn clean install
+          command: mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
