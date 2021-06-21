@@ -30,10 +30,6 @@ jobs:
           name: try
           command: export JAVA_HOME=/usr/java/jdk-11.0.11/
 
-      - run:
-          name: retest
-          command: mvn --version -Djavacpp.platform=linux-x86_64
-
       # Build maven
       - run:
           name: build
