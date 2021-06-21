@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: export JAVA_HOME='/usr/java/jdk-11.0.11' && mvn -B clean install
+          command: export JAVA_HOME='' && mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
