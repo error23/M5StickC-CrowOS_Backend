@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: which java && export JAVACMD=/usr/java/jdk-11.0.11/bin/java && mvn -B clean install
+          command: cat "$HOME/.mavenrc" && export JAVACMD=/usr/java/jdk-11.0.11/bin/java && mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
