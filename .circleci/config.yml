@@ -32,12 +32,12 @@ jobs:
 
       - run:
           name: retest
-          command: mvn --version
+          command: JAVA_HOME=/usr/java/jdk-11.0.11/&& mvn -B clean install && mvn --version
 
       # Build maven
       - run:
           name: build
-          command: mvn -B clean install
+          command: JAVA_HOME=/usr/java/jdk-11.0.11/&& mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
