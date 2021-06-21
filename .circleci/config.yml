@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: export JAVA_HOME='' && mvn -B clean install
+          command: echo $JAVA_HOME && mvn -B clean install
 
       # Save maven dependencies to cache
       - save_cache:
