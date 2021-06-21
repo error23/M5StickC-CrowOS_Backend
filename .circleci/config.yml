@@ -5,7 +5,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: error23/circle_ci_builder
+      - image: maven
 
     steps:
 
