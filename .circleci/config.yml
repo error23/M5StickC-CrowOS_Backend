@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: /bin/sh -c mvn -B clean install
+          command: mvn clean install
 
       - run:
           name: Save test results
