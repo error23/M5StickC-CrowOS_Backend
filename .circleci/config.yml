@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: retest
-          command: echo $JAVA_HOME
+          command: java --version
 
       # Build maven
       - run:
