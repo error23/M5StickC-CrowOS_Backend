@@ -20,7 +20,7 @@ jobs:
 
       # Setup new maven version
       - run:
-          name: crow version manager
+          name: Crow version manager
           command: setMavenVersion.sh
 
       # Build maven
