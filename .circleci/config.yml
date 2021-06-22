@@ -26,7 +26,7 @@ jobs:
       # Build maven
       - run:
           name: build
-          command: mvn clean install
+          command: mvn -B -DskipTests clean package
 
       - run:
           name: Save test results
