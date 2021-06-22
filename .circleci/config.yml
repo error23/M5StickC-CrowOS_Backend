@@ -79,7 +79,7 @@ workflows:
       - build-and-test
       - release:
           requires:
-            - build_and_release
+            - build-and-test
           filters:
             tags:
               only: /.*/
