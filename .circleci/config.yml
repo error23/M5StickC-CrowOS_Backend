@@ -39,7 +39,9 @@ jobs:
           path: ~/test-results
 
       - store_artifacts:
-          path: ~/test-results/junit
+          path: |
+            target/Dockerfile
+            target/*.jar
 
         # Save maven dependencies to cache
       - save_cache:
@@ -54,7 +56,6 @@ jobs:
             - root
 
   release:
-
     docker:
       - image: error23/circle_ci_builder
 
@@ -76,7 +77,10 @@ workflows:
   version: 2
   build_and_release:
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            tags:
+              only: /.*/
       - release:
           requires:
             - build-and-test
