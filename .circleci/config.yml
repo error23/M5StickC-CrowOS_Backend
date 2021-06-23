@@ -39,9 +39,15 @@ jobs:
           path: ~/test-results
 
       - store_artifacts:
-          path: |
-            target/Dockerfile
-            target/*.jar
+          path: ~/test-results/junit
+          destination: tests/
+
+      - store_artifacts:
+          path: target/Dockerfile
+          destination: Dockerfile
+
+      - store_artifacts:
+          path: target/*.jar
 
         # Save maven dependencies to cache
       - save_cache:
