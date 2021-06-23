@@ -47,7 +47,7 @@ jobs:
           destination: Dockerfile
 
       - store_artifacts:
-          path: target/*.jar
+          path: target/backend-${backend.version}.jar
 
         # Save maven dependencies to cache
       - save_cache:
