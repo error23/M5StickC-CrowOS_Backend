@@ -74,6 +74,11 @@ jobs:
       - attach_workspace:
           at: /
 
+
+      - run:
+          name: Export variables to bash
+          command: echo "export $DOCKER_REPOSITORY" >>  $BASH_ENV
+
       # Build and push docker image
       - run:
           name: Build and push docker image
