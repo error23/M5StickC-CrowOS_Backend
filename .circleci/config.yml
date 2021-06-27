@@ -1,0 +1,97 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: error23/circle_ci_builder
+
+    steps:
+
+      # Checkout git project
+      - checkout
+
+      # Restore maven dependencies cache
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      # Setup new maven version
+      - run:
+          name: Crow version manager
+          command: setMavenVersion.sh
+
+      # Build maven
+      - run:
+          name: build
+          command: mvn clean install
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/test-results
+
+      - store_artifacts:
+          path: ~/test-results/junit
+          destination: tests/
+
+      - store_artifacts:
+          path: target/Dockerfile
+          destination: Dockerfile
+
+      - store_artifacts:
+          path: target/backend-${backend.version}.jar
+
+        # Save maven dependencies to cache
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      # Persist built project to workspace
+      - persist_to_workspace:
+          root: /
+          paths:
+            - root
+
+  release:
+    docker:
+      - image: error23/circle_ci_builder
+
+    steps:
+      # Tell to circleCi that we need to build docker
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      # Attach built workspace
+      - attach_workspace:
+          at: /
+
+      # Build and push docker image
+      - run:
+          name: Build and push docker image
+          command: buildAndDeployDockerImage.sh
+
+workflows:
+  version: 2
+  build_and_release:
+    jobs:
+      - build-and-test:
+          filters:
+            tags:
+              only: /.*/
+      - release:
+          requires:
+            - build-and-test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
