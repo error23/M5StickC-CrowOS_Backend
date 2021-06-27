@@ -5,7 +5,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: error23/circle_ci_builder
+      - image: error23/circle-ci-builder
 
     steps:
 
@@ -25,7 +25,7 @@ jobs:
 
       # Build maven
       - run:
-          name: build
+          name: Build
           command: mvn clean install
 
       - run:
@@ -63,7 +63,7 @@ jobs:
 
   release:
     docker:
-      - image: error23/circle_ci_builder
+      - image: error23/circle-ci-builder
 
     steps:
       # Tell to circleCi that we need to build docker
