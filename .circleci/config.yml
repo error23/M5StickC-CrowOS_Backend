@@ -48,7 +48,7 @@ jobs:
             mkdir ~/artifacts
             cp target/*.jar ~/artifacts
             cp target/Dockerfile ~/artifacts
-            cp start_crow_backend.sh ~/artifacts
+            cp target/start_crow_backend.sh ~/artifacts
 
       - store_artifacts:
           path: ~/artifacts
