@@ -299,7 +299,10 @@
 				<filtering>true</filtering>
 				<excludes>
 					<exclude>Dockerfile</exclude>
+					<exclude>start_crow_backend.sh</exclude>
 					<exclude>SQL/**</exclude>
+					<exclude>postDeploy/**</exclude>
+					<exclude>preDeploy/**</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -307,7 +310,10 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>Dockerfile</include>
+					<include>start_crow_backend.sh</include>
 					<include>SQL/**</include>
+					<include>postDeploy/**</include>
+					<include>preDeploy/**</include>
 				</includes>
 				<targetPath>${project.build.directory}</targetPath>
 			</resource>

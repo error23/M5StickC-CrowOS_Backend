@@ -42,9 +42,17 @@ jobs:
           path: ~/test-results/junit
           destination: tests/
 
+      - run:
+          name: Save bin artifacts
+          command: |
+            mkdir ~/artifacts
+            cp target/*.jar ~/artifacts
+            cp target/Dockerfile ~/artifacts
+            cp start_crow_backend.sh ~/artifacts
+
       - store_artifacts:
-          path: target/Dockerfile
-          destination: Dockerfile
+          path: ~/artifacts
+          destination: bin/
 
         # Save maven dependencies to cache
       - save_cache:

@@ -42,4 +42,4 @@ ALTER TABLE printer ADD CONSTRAINT pk_printer PRIMARY KEY (id);
 -- Initial data for printer
 
 INSERT INTO printer (owner, updated_by, version, machine_ip, machine_port)
-VALUES (2, 2, 0, '192.168.0.3', 8899);
+VALUES (2, 2, 0, '${PRINTER_MACHINE_IP}', 8899);
