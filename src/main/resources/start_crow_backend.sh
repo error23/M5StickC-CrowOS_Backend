@@ -9,11 +9,11 @@
 # Description :  Default crow os docker backend starter
 #############################################################
 
-LOCAL_POSTGRESQL_FOLDER=~/crow/os
+LOCAL_POSTGRESQL_FOLDER=~/.crow/os
 FLASHFORGE_PRINTER_IP=$1 # change me
 
 mkdir -pv $LOCAL_POSTGRESQL_FOLDER
-
+chmod 777 $LOCAL_POSTGRESQL_FOLDER
 
 #######################################################################################################
 docker run                                                                                            \
