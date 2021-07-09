@@ -10,14 +10,15 @@
 #############################################################
 
 LOCAL_POSTGRESQL_FOLDER=~/.crow/os
-FLASHFORGE_PRINTER_IP=$1 # change me
+SERVER_MACHINE_IP=$1      # change me
+FLASHFORGE_PRINTER_IP=$2  # change me
 
 mkdir -pv $LOCAL_POSTGRESQL_FOLDER
 chmod 777 $LOCAL_POSTGRESQL_FOLDER
 
 #######################################################################################################
 docker run                                                                                            \
-    -p 127.0.0.1:80:8080 -p 127.0.0.1:80:8080/udp                                                     \
+    -p $SERVER_MACHINE_IP:80:8080 -p $SERVER_MACHINE_IP:80:8080/udp                                   \
     -v $LOCAL_POSTGRESQL_FOLDER:/var/lib/pgsql/                                                       \
     --env DB_USER=db_admin                                                                            \
     --env DB_PASSWORD=db_admin_changeMe                                                               \
@@ -38,5 +39,5 @@ docker run                                                                      
     --env ESP_DEV_USER_LAST_NAME=DEV                                                                  \
     --env ESP_DEV_USER_EMAIL=esp32.dev@crow.com                                                       \
     --env ESP_DEV_USER_PASSWORD=esp_32_dev_changeMe                                                   \
-    -td error23/crow-os-backend:1.0.0                                                                     #
+    -td error23/crow-os-backend:1.0.0                                                                 #
 #######################################################################################################
