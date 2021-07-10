@@ -53,9 +53,7 @@ public class PrinterService {
 				SecurityTools.getConnectedAccount()));
 		}
 
-		List<Printer> printers = this.printerDao.search(dto);
-		this.synchronizeWithFlashForgeDreamer(printers);
-		return printers;
+		return this.printerDao.search(dto);
 
 	}
 
