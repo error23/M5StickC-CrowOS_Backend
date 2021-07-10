@@ -4,6 +4,7 @@ import com.crow.iot.esp32.crowOS.backend.commons.DuplicatedResourceException;
 import com.crow.iot.esp32.crowOS.backend.commons.I18nHelper;
 import com.crow.iot.esp32.crowOS.backend.commons.ResourceNotFoundException;
 import com.crow.iot.esp32.crowOS.backend.commons.architecture.dto.ExceptionDto;
+import com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer.FlashForgeDreamerClientException;
 import com.crow.iot.esp32.crowOS.backend.security.MissingPermissionException;
 import com.crow.iot.esp32.crowOS.backend.security.SecurityTools;
 import com.crow.iot.esp32.crowOS.backend.security.role.permission.Privilege;
@@ -164,6 +165,28 @@ public class AbstractEndpoint {
 
 		if (SecurityTools.canConnectedAccount(Privilege.READ, SecuredResource.STACK_TRACE, null)) {
 			response.setStackTrace(Arrays.toString(e.getStackTrace()));
+		}
+
+		return response;
+	}
+
+	@ExceptionHandler (FlashForgeDreamerClientException.class)
+	@ResponseStatus (HttpStatus.SERVICE_UNAVAILABLE)
+	@ResponseBody
+	@PreAuthorize ("permitAll()")
+	public ExceptionDto flashForgeDreamerException(FlashForgeDreamerClientException e) {
+
+		log.trace("Flash forge dreamer client exception: ", e);
+
+		ExceptionDto response = ExceptionDto.builder()
+		                                    .error("FLASH_FORGE_DREAMER_CLIENT_EXCEPTION")
+		                                    .detailsHumanReadable(e.getLocalizedMessage())
+		                                    .locale(LocaleContextHolder.getLocale().toString())
+		                                    .build();
+
+		if (SecurityTools.canConnectedAccount(Privilege.READ, SecuredResource.STACK_TRACE, null)) {
+			response.setStackTrace(Arrays.toString(e.getStackTrace()));
+
 		}
 
 		return response;
