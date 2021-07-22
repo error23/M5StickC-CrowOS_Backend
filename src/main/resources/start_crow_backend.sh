@@ -39,5 +39,5 @@ docker run                                                                      
     --env ESP_DEV_USER_LAST_NAME=DEV                                                                  \
     --env ESP_DEV_USER_EMAIL=esp32.dev@crow.com                                                       \
     --env ESP_DEV_USER_PASSWORD=esp_32_dev_changeMe                                                   \
-    -td error23/crow-os-backend:1.1.0                                                                 #
+    -td error23/crow-os-backend:1.1.1                                                                 #
 #######################################################################################################
