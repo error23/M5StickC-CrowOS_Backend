@@ -15,6 +15,7 @@ public enum FlashForgeDreamerCommands {
 	GET_GENERAL_INFO("~M115"),
 	GET_TEMPERATURE("~M105"),
 	GET_POSITIONS("~M114"),
+	GET_PRINTING_PROGRESS("~M27"),
 	SET_COLOR("~M146"),
 	BUY("~M602");
 

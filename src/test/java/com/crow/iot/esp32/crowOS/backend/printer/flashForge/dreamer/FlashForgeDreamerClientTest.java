@@ -106,9 +106,29 @@ class FlashForgeDreamerClientTest {
 
 		this.client.updatePositions(this.printer);
 
-		assertThat(123.001).isEqualTo(this.printer.getX());
-		assertThat(79.9912).isEqualTo(this.printer.getY());
-		assertThat(10.5).isEqualTo(this.printer.getZ());
+		assertThat(this.printer.getX()).isEqualTo(123.001);
+		assertThat(this.printer.getY()).isEqualTo(79.9912);
+		assertThat(this.printer.getZ()).isEqualTo(10.5);
+
+	}
+
+	@Test
+	void whenUpdatePrintingProgress_thanSuccess() {
+
+		String answer = "CMD M27 Received.\n" +
+			"SD printing byte 896065/5019767\n" +
+			"ok";
+
+		Mockito.doReturn(answer)
+		       .when(this.client)
+		       .sendCommand(ArgumentMatchers.matches("192.168.0.3"),
+		                    ArgumentMatchers.eq(8899),
+		                    ArgumentMatchers.eq(FlashForgeDreamerCommands.GET_PRINTING_PROGRESS),
+		                    ArgumentMatchers.eq(null));
+
+		this.client.updatePrintingProgress(this.printer);
+
+		assertThat(this.printer.getPrintingProgress()).isEqualTo(17.85);
 
 	}
 

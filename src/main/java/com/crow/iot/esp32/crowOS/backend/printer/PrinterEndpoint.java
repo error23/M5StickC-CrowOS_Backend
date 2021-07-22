@@ -72,7 +72,7 @@ public class PrinterEndpoint extends AbstractEndpoint {
 	}
 
 	@Operation (summary = "Updates printer adresse")
-	@PatchMapping ("/{printerId:[0-9]+}/adressse")
+	@PatchMapping ("/{printerId:[0-9]+}/adresse")
 	@ResponseBody
 	@ResponseStatus (HttpStatus.ACCEPTED)
 	public void updateMachineAdresse(@PathVariable ("printerId") Long id, @RequestParam @Valid @NotNull String machineIp, @RequestParam @Valid @NotNull Integer machinePort) throws MethodArgumentNotValidException {

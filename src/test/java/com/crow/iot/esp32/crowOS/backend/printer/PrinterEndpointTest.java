@@ -188,7 +188,7 @@ class PrinterEndpointTest {
 	@Test
 	void whenUpdateMachineAdresse_thanSuccess() throws Exception {
 
-		this.mvc.perform(patch("/printer/{printerId}/adressse?machineIp={machineIp}&machinePort={machinePort}", 0, "192.168.0.0", 80))
+		this.mvc.perform(patch("/printer/{printerId}/adresse?machineIp={machineIp}&machinePort={machinePort}", 0, "192.168.0.0", 80))
 		        .andDo(log())
 		        .andExpect(status().isAccepted())
 		        .andExpect(content().encoding(StandardCharsets.UTF_8.name()));

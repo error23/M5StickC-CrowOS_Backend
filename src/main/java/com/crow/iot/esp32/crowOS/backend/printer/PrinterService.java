@@ -155,6 +155,7 @@ public class PrinterService {
 			this.flashForgeDreamerClient.updateGeneralInfo(printer);
 			this.flashForgeDreamerClient.updateTemperature(printer);
 			this.flashForgeDreamerClient.updatePositions(printer);
+			this.flashForgeDreamerClient.updatePrintingProgress(printer);
 			this.flashForgeDreamerClient.sendBuy(printer);
 		}
 
