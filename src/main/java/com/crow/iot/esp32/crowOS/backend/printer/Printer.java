@@ -89,4 +89,7 @@ public class Printer extends AbstractEntity {
 	@Column (name = "temperature_bed")
 	private Integer temperatureBed;
 
+	@Column (name = "printing_progress")
+	private Double printingProgress;
+
 }

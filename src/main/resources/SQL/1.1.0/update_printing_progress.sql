@@ -1,0 +1,1 @@
+ALTER TABLE printer ADD COLUMN printing_progress DOUBLE PRECISION;

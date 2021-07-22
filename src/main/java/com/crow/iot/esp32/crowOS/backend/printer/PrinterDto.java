@@ -27,4 +27,6 @@ public class PrinterDto extends PrinterMinimalDto {
 	private Integer temperatureExtruderLeft;
 	private Integer temperatureExtruderRight;
 	private Integer temperatureBed;
+
+	private Double printingProgress;
 }
