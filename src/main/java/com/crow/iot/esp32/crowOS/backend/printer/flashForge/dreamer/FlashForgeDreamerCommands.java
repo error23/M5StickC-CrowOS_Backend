@@ -28,7 +28,10 @@ public enum FlashForgeDreamerCommands {
 	 */
 	public String getExpectedAnswer() {
 
-		return "CMD " + this.commandValue.substring(1, 5) + " Received.";
+		int end = this.commandValue.length();
+		if (this.commandValue.contains(" ")) end = this.commandValue.indexOf(" ");
+
+		return "CMD " + this.commandValue.substring(1, end) + " Received.";
 	}
 
 }
