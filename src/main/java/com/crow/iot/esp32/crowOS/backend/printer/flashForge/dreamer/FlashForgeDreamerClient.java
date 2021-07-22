@@ -2,6 +2,7 @@ package com.crow.iot.esp32.crowOS.backend.printer.flashForge.dreamer;
 
 import com.crow.iot.esp32.crowOS.backend.printer.ColorRGB;
 import com.crow.iot.esp32.crowOS.backend.printer.Printer;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.Socket;
 
 /**
@@ -17,6 +20,7 @@ import java.net.Socket;
  * Created : 29/05/2021
  */
 @Component
+@Slf4j
 public class FlashForgeDreamerClient {
 
 	@Value ("${flashforge.dreamer.schedule.retriesUntilFail}")
@@ -73,6 +77,30 @@ public class FlashForgeDreamerClient {
 		printer.setX(Double.parseDouble(positions[0].substring(2)));
 		printer.setY(Double.parseDouble(positions[1].substring(2)));
 		printer.setZ(Double.parseDouble(positions[2].substring(2)));
+
+	}
+
+	/**
+	 * Update database {@link Printer} printing progress value from physical flash forge dreamer printer
+	 *
+	 * @param printer to update
+	 */
+	public void updatePrintingProgress(@NotNull Printer printer) {
+
+		String result = this.sendCommand(printer.getMachineIp(), printer.getMachinePort(), FlashForgeDreamerCommands.GET_PRINTING_PROGRESS, null);
+		String[] progress = result.split("\n")[1].split(" ")[3].split("/");
+
+		try {
+
+			Double total = Double.parseDouble(progress[0]);
+			Double done = Double.parseDouble(progress[1]);
+
+			printer.setPrintingProgress(BigDecimal.valueOf(total / done * 100).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
+		}
+		catch (NumberFormatException e) {
+			log.error("Could not parse printing progress", e);
+		}
 
 	}
 
