@@ -99,7 +99,7 @@ public class FlashForgeDreamerClient {
 
 		}
 		catch (NumberFormatException e) {
-			log.error("Could not parse printing progress", e);
+			printer.setPrintingProgress(- 1D);
 		}
 
 	}
