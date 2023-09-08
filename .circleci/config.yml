@@ -68,7 +68,7 @@ jobs:
 
   release:
     docker:
-      - image: error23/circle-ci-builder
+      - image: error23/circle-ci-builder:2.0
 
     steps:
       # Tell to circleCi that we need to build docker
